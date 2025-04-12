@@ -3,9 +3,7 @@ const express = require("express");
 const app = express();
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
-const commentRoutes = require("./routes/comment");
-const postRoutes = require("./routes/post");
-const cors = require("cors"); // Allows the frontend (on a different domain) to communicate with the backend
+const cors = require("cors");
 
 app.use(cors({ origin: "*", credentials: true }));
 app.options("*", cors());
