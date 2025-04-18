@@ -6,9 +6,9 @@ const NavBar = () => {
   const token = getToken(); 
 
   return (
-    <nav className="bg-blue-600 p-4 flex justify-between items-center text-white">
+    <nav className="bg-blue-500 p-4 flex justify-between items-center text-white">
          <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
-        <h1 className="text-2xl font-bold">Brain Dump</h1>
+        <h1 className="text-2xl font-bold">Messagely</h1>
       </div>
 
       <div className="space-x-4">
