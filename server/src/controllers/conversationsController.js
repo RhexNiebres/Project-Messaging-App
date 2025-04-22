@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 exports.getConversation = async (req, res) => {
@@ -6,7 +6,7 @@ exports.getConversation = async (req, res) => {
   try {
     const conversation = await prisma.conversation.findUnique({
       where: { id: parseInt(id) },
-      include: { messages : true, chatMembers: true },
+      include: { messages: true, chatMembers: true },
     });
 
     if (!conversation) {
@@ -23,7 +23,9 @@ exports.createConversation = async (req, res) => {
   const { chatMembers } = req.body;
   try {
     if (!chatMembers || chatMembers.length < 2) {
-      return res.status(400).json({ message: "at least 2 members are required" });
+      return res
+        .status(400)
+        .json({ message: "at least 2 members are required" });
     }
     const conversation = await prisma.conversation.create({
       data: {
@@ -44,13 +46,13 @@ exports.deleteConversation = async (req, res) => {
       where: { id: parseInt(id) },
     });
 
-    if(!conversation){
-        return res.status(404).json({message: 'Conversation not found'})
+    if (!conversation) {
+      return res.status(404).json({ message: "Conversation not found" });
     }
     await prisma.conversation.delete({
-        where: {id: parseInt(id) },
-    })
-    res.status(200).json({message: 'Conversation deleted successfully'});
+      where: { id: parseInt(id) },
+    });
+    res.status(200).json({ message: "Conversation deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Error Deleting conversation" });
   }
