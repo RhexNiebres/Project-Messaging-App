@@ -11,15 +11,19 @@ exports.postSignUp = async (req, res, next) => {
     if (!username || !password || !email) {
       return res.status(400).json({ message: "All fields are required." });
     }
+    
+    const [existingUserByUsername, existingUserByEmail] = await Promise.all([
+      prisma.user.findUnique({ where: { username } }),
+      prisma.user.findUnique({ where: { email } }),
+    ]);
 
-    const existingUser = await prisma.user.findUnique({
-      where: { username },
-    });
-
-    if (existingUser) {
+    if (existingUserByUsername) {
       return res.status(400).json({ message: "Username already exists." });
     }
 
+    if (existingUserByEmail) {
+      return res.status(400).json({ message: "Email already exists." });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
