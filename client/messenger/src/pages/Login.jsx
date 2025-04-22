@@ -63,10 +63,10 @@ const Login = () => {
           >
             Login
           </button>
-          <div className="flex justify-center">
+          <div className="flex justify-center border-t-2 mt-4">
           <button
             onClick={() => navigate("/signup")}
-            className="bg-green-500 rounded-md p-1 font-semibold text-white mt-5 "
+            className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
           >
             Create new account?
           </button>
