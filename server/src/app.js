@@ -4,6 +4,8 @@ const app = express();
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users")
+const conversationsRoutes = require("./routes/conversations")
+
 const cors = require("cors");
 
 app.use(cors({ origin: "*", credentials: true }));
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/users", usersRoutes);
+app.use("/conversations", conversationsRoutes);
 
 
 app.listen(process.env.APP_PORT, () =>
