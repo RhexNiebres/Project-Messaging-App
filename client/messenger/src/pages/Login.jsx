@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { login } from "../services/Auth";
-import NavBar from "../components/NavBar";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -18,11 +17,10 @@ const Login = () => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }
 
   return (
     <div>
-      <NavBar />
       <div className="py-15 hide-scrollbar flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <h2 className="text-5xl font-bold text-black mb-6">Login</h2>
 
