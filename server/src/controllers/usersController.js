@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 exports.getAllUsers = async (req, res) => {
@@ -29,7 +29,6 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-
   const { id } = req.params;
   const { email, username } = req.body;
 
