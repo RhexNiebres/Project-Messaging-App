@@ -18,7 +18,7 @@ app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/conversations", conversationsRoutes);
-app.use("/messages", conversationsRoutes);
+app.use("/messages", messagesRoutes);
 
 app.listen(process.env.APP_PORT, () =>
   console.log(`App listening on port ${process.env.APP_PORT}!`)
