@@ -9,6 +9,7 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    gender: "NON_SPECIFIED", // with default value
   });
   const [error, setError] = useState(null);
 
@@ -25,6 +26,7 @@ const Signup = () => {
         username: credentials.username,
         email: credentials.email,
         password: credentials.password,
+        gender: credentials.gender,
       });
 
       alert("Account Created  Successful! Please log in.");
@@ -44,7 +46,9 @@ const Signup = () => {
           onSubmit={handleSignup}
           className="bg-white p-6 rounded-lg shadow-lg w-80"
         >
-           <h2 className="text-2xl font-bold text-gray-900 mb-6">Create a new account</h2> 
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Create a new account
+          </h2>
           <input
             type="text"
             placeholder="Username"
@@ -84,6 +88,18 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <select
+            value={credentials.gender}
+            onChange={(e) =>
+              setCredentials({ ...credentials, gender: e.target.value })
+            }
+            className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="NON_SPECIFIED">Prefer not to say</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+          </select>
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-400 transition duration-200"
@@ -91,12 +107,12 @@ const Signup = () => {
             Sign Up
           </button>
           <div className="flex justify-center mt-4 border-t-2">
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
-          >
-            Already have a account?
-          </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
+            >
+              Already have a account?
+            </button>
           </div>
         </form>
       </div>

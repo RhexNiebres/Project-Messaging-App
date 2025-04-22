@@ -5,7 +5,6 @@ import LandingPage from './pages/LandingPage';
 const App = () => {
   return (
     <div>
-      <NavBar/>
       <LandingPage/>
     </div>
   );
