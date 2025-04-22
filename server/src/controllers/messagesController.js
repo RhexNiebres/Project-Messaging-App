@@ -46,3 +46,24 @@ exports.sendMessage = async (req, res) => {
     res.status(500).json({ error: "Error sending message" });
   }
 };
+
+exports.deleteMessage = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const message = await prisma.message.findUnique({
+        where: { id: parseInt(id) },
+      }); 
+  
+      if (!message) {
+        res.status(404).json({ message: "message not found" });
+      }
+  
+      await prisma.message.delete({
+        where:{id:parseInt(id)},
+      });
+  
+      res.status (200).json({message: 'Message deleted successfully'});
+    } catch (error) {
+      res.status(500).json({ error: "Error deleting message" });
+    }
+  };
