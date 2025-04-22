@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { signup } from "../services/Auth";
-import NavBar from "../components/NavBar";
+
 
 const Signup = () => {
   const [credentials, setCredentials] = useState({
@@ -34,7 +34,6 @@ const Signup = () => {
 
   return (
     <div>
-      <NavBar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <h2 className="text-4xl font-bold text-gray-900 mb-6">Sign Up</h2>
 
