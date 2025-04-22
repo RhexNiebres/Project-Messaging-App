@@ -7,7 +7,7 @@ const NavBar = () => {
 
   return (
     <nav className="bg-blue-500 p-4 flex justify-between items-center text-white">
-         <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
+         <div className="flex items-center cursor-pointer" onClick={() => navigate("/home")}>
         <h1 className="text-2xl font-bold">Messagely</h1>
       </div>
 
@@ -30,10 +30,10 @@ const NavBar = () => {
         ) : (
           <div className="space-x-4">
             <button
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/profile")}
             className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-slate-100 hover:text-blue-600"
           >
-            Add Comments
+            view profile here
           </button>
           
           <button
