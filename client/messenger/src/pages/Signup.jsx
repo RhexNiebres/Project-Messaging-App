@@ -27,7 +27,7 @@ const Signup = () => {
         password: credentials.password,
       });
 
-      alert("Signup successful! Please log in.");
+      alert("Account Created  Successful! Please log in.");
     } catch (err) {
       setError(err.message);
     }
@@ -90,10 +90,10 @@ const Signup = () => {
           >
             Sign Up
           </button>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-4 border-t-2">
           <button
             onClick={() => navigate("/login")}
-            className="bg-green-500 rounded-md p-1 font-semibold text-white mt-5 "
+            className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
           >
             Already have a account?
           </button>
