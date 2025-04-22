@@ -13,7 +13,6 @@ export const signup = async (credentials) => {
   const data = await response.json();
   localStorage.setItem("token", data.token);
   localStorage.setItem("userId", data.userId);
-  localStorage.setItem("role", data.role);
 
   window.location.href = "/login";
   return data;
@@ -34,7 +33,6 @@ export const login = async (credentials) => {
   const data = await response.json();
   localStorage.setItem("token", data.token);
   localStorage.setItem("userId", data.userId);
-  localStorage.setItem("role", data.role);
 
   window.location.href = "/home";
   return data;
@@ -46,7 +44,6 @@ export const getUserId = () => localStorage.getItem("userId");
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
-  localStorage.removeItem("role");
   window.location.href = "/login";
 };
 
