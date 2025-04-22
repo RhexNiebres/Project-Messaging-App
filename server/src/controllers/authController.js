@@ -27,7 +27,6 @@ exports.postSignUp = async (req, res, next) => {
         username,
         email,
         password: hashedPassword,
-        role: "USER",
       },
     });
 
@@ -50,7 +49,6 @@ exports.postLogin = async(req,res, next) =>{
         username: true,
         email: true,
         password: true,
-        role: true,  
       },
     });
 
