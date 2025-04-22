@@ -14,19 +14,17 @@ model User {
   email          String         @unique
   username       String         @unique
   password       String
-
+  gender         Gender @default(NON_SPECIFIED)
   messages       Message[]
-  conversations  Conversation[] @relation("ChatMembers")
+  conversations  Conversation[] @relation("Members")
   
-  profilePictureId Int?
-  profilePicture ProfilePicture? @relation("UserProfilePicture", fields: [profilePictureId], references: [id])
 }
 
 model Conversation {
   id           Int       @id @default(autoincrement())
   createdAt    DateTime  @default(now())
 
-  chatMembers User[]    @relation("ChatMembers")
+  chatMembers User[]    @relation("Members")
   messages     Message[]
 }
 model Message {
@@ -40,8 +38,9 @@ model Message {
   conversation   Conversation  @relation(fields: [conversationId], references: [id])
 }
 
-model ProfilePicture{
-  id            Int @id @default(autoincrement()) 
-  url           String
-  users   User[] @relation("UserProfilePicture")
+enum Gender{
+  MALE
+  FEMALE
+  NON_SPECIFIED 
 }
+
