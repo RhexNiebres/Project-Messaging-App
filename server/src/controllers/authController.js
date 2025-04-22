@@ -6,9 +6,9 @@ require("dotenv").config({ path: "../../.env" });
 
 exports.postSignUp = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, gender } = req.body;
 
-    if (!username || !password || !email) {
+    if (!username || !password || !email || !gender) {
       return res.status(400).json({ message: "All fields are required." });
     }
     
@@ -31,6 +31,7 @@ exports.postSignUp = async (req, res, next) => {
         username,
         email,
         password: hashedPassword,
+        gender,
       },
     });
 
@@ -53,6 +54,7 @@ exports.postLogin = async (req, res, next) => {
         username: true,
         email: true,
         password: true,
+        gender: true,
       },
     });
 
