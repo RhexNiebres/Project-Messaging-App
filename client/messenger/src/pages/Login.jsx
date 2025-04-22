@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { login } from "../services/Auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -17,7 +19,8 @@ const Login = () => {
     } catch (err) {
       setError(err.message);
     }
-  }
+  };
+ 
 
   return (
     <div>
@@ -60,6 +63,14 @@ const Login = () => {
           >
             Login
           </button>
+          <div className="flex justify-center">
+          <button
+            onClick={() => navigate("/signup")}
+            className="bg-green-500 rounded-md p-1 font-semibold text-white mt-5 "
+          >
+            Create new account?
+          </button>
+          </div>
         </form>
       </div>
     </div>
