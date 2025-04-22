@@ -44,7 +44,7 @@ export const getUserId = () => localStorage.getItem("userId");
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
-  window.location.href = "/login";
+  window.location.href = "/";
 };
 
 export const isAuthenticated = () => !!getToken();
