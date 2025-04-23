@@ -67,7 +67,7 @@ exports.postLogin = async (req, res, next) => {
 
     const token = generateToken(user);
 
-    res.json({ message: "Login successful", token, role: user.role });
+    res.json({ message: "Login successful", token,});
   } catch (err) {
     next(err);
   }
