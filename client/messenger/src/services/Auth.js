@@ -12,10 +12,10 @@ export const signup = async (credentials) => {
 
   const data = await response.json();
   localStorage.setItem("token", data.token);
-  localStorage.setItem("userId", data.user.id);
-  localStorage.setItem("username", data.user.username);
-  localStorage.setItem("email", data.user.email);
-  localStorage.setItem("gender", data.user.gender);
+  localStorage.setItem("userId", data.userId);
+  localStorage.setItem("username", data.username);
+  localStorage.setItem("email", data.email);
+  localStorage.setItem("gender", data.gender);
   
   window.location.href = "/login";
   return data;
@@ -35,10 +35,10 @@ export const login = async (credentials) => {
 
   const data = await response.json();
   localStorage.setItem("token", data.token);
-  localStorage.setItem("userId", data.user.id);
-  localStorage.setItem("username", data.user.username);
-  localStorage.setItem("email", data.user.email);
-  localStorage.setItem("gender", data.user.gender);
+  localStorage.setItem("userId", data.userId);
+  localStorage.setItem("username", data.username);
+  localStorage.setItem("email", data.email);
+  localStorage.setItem("gender", data.gender);
   
   window.location.href = "/home";
   return data;
@@ -54,6 +54,7 @@ export const logout = () => {
 };
 
 export const isAuthenticated = () => !!getToken();
+export const getUserRole = () => localStorage.getItem("role");
 
 export const getUser = async () => {
   const token = getToken();
