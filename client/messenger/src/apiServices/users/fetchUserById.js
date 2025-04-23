@@ -13,7 +13,7 @@ export const fetchUsersById = async (id) => {
     } else {
       throw new Error("User not found");
     }
-  } catch (error){
+  } catch(error){
     return { success: false, error: error.message };
   }
 };
