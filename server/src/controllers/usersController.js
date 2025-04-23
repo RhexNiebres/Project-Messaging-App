@@ -14,7 +14,7 @@ exports.getUserById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: parseInt(id) },
     });
 
