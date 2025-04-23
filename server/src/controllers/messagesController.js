@@ -7,11 +7,17 @@ exports.getMessageByConversation = async (req, res) => {
   try {
     const conversation = await prisma.conversation.findUnique({
       where: { id: parseInt(id) },
-      include: { messages: true },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+      },
     });
 
     if (!conversation) {
-     return res.status(404).json({ message: "Conversation not found" });
+      return res.status(404).json({ message: "Conversation not found" });
     }
 
     res.json(conversation.messages);
@@ -55,7 +61,7 @@ exports.deleteMessage = async (req, res) => {
     });
 
     if (!message) {
-     return res.status(404).json({ message: "Message not found" });
+      return res.status(404).json({ message: "Message not found" });
     }
 
     await prisma.message.delete({
