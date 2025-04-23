@@ -11,7 +11,7 @@ exports.postSignUp = async (req, res, next) => {
     if (!username || !password || !email || !gender) {
       return res.status(400).json({ message: "All fields are required." });
     }
-    
+
     const [existingUserByUsername, existingUserByEmail] = await Promise.all([
       prisma.user.findUnique({ where: { username } }),
       prisma.user.findUnique({ where: { email } }),
@@ -67,7 +67,14 @@ exports.postLogin = async (req, res, next) => {
 
     const token = generateToken(user);
 
-    res.json({ message: "Login successful", token,});
+    res.json({
+      message: "Login successful",
+      token,
+      userId: user.id,
+      username: user.username,
+      email: user.email,
+      gender: user.gender,
+    });
   } catch (err) {
     next(err);
   }
