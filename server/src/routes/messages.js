@@ -4,6 +4,6 @@ const messageController = require("../controllers/messagesController");
 
 router.get("/:id/messages", messageController.getMessageByConversation);
 router.post("/:id/messages", messageController.sendMessage);
-router.delete("/messages/:id", messageController.deleteMessage);
+router.delete("/:id", messageController.deleteMessage);
 
 module.exports = router;
