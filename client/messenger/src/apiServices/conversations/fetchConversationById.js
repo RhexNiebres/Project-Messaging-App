@@ -1,7 +1,11 @@
 export const fetchConversationById = async (id) => {
     try {
-      const response = await fetch(import.meta.env.VITE_HOST + `/conversations/${id}`);
-      
+      const response = await fetch(`${import.meta.env.VITE_HOST}/conversations/${id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch conversation");
       }
