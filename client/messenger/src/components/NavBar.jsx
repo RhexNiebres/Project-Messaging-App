@@ -1,5 +1,6 @@
 import { getToken, logout } from "../services/Auth"; 
 import { useNavigate } from "react-router-dom";
+import ProfileButton from "./ProfileButton";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -28,20 +29,15 @@ const NavBar = () => {
             </button>
           </>
         ) : (
-          <div className="space-x-4">
-            <button
-            onClick={() => navigate("/profile")}
-            className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-slate-100 hover:text-blue-600"
-          >
-            view profile here
-          </button>
+          <div className="space-x-4 flex">
+              <ProfileButton/>
           
-          <button
+           <button
             onClick={() => logout(navigate)}
             className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
-          >
-            Log Out
-          </button>
+            >
+              Log Out
+            </button>
           </div>
         )}
       </div>
