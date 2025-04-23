@@ -11,7 +11,7 @@ exports.getMessageByConversation = async (req, res) => {
     });
 
     if (!conversation) {
-      res.status(404).json({ message: "Conversation not found" });
+     return res.status(404).json({ message: "Conversation not found" });
     }
 
     res.json(conversation.messages);
@@ -55,7 +55,7 @@ exports.deleteMessage = async (req, res) => {
     });
 
     if (!message) {
-      res.status(404).json({ message: "message not found" });
+     return res.status(404).json({ message: "Message not found" });
     }
 
     await prisma.message.delete({
