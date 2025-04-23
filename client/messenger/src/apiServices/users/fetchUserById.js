@@ -1,7 +1,11 @@
 export const fetchUsersById = async (id) => {
   try {
-    const response = await fetch(import.meta.env.VITE_HOST + `/users/${id}`);
-    
+    const response = await fetch(`${import.meta.env.VITE_HOST}/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch user");
     }
