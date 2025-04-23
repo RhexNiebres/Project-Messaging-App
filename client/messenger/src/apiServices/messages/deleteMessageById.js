@@ -4,6 +4,9 @@ export const deleteMessageById = async (messageId) => {
         import.meta.env.VITE_HOST + `/messages/${messageId}`,
         {
           method: "DELETE",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+          },
         }
       );
   
