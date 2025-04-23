@@ -1,4 +1,4 @@
-export const fetchUsersById = async () => {
+export const fetchUsersById = async (id) => {
   try {
     const response = await fetch(import.meta.env.VITE_HOST + `/users/${id}`);
     
@@ -13,7 +13,7 @@ export const fetchUsersById = async () => {
     } else {
       throw new Error("User not found");
     }
-  } catch {
+  } catch(error){
     return { success: false, error: error.message };
   }
 };
