@@ -6,7 +6,7 @@ exports.getConversation = async (req, res) => {
   try {
     const conversation = await prisma.conversation.findUnique({
       where: { id: parseInt(id) },
-      include: { chatMembers: true },
+      include: { messages: true, chatMembers: true },
     });
 
     if (!conversation) {
@@ -16,6 +16,29 @@ exports.getConversation = async (req, res) => {
     res.json(conversation);
   } catch (error) {
     res.status(500).json({ error: "Error fetching conversation" });
+  }
+};
+
+
+exports.getUserConversations = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const conversations = await prisma.conversation.findMany({
+      where: {
+        chatMembers: {
+          some: {
+            id: parseInt(id), 
+          },
+        },
+      },
+      include: {
+        chatMembers: true,
+      },
+    });
+
+    res.json(conversations); 
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching user's conversations" });
   }
 };
 
