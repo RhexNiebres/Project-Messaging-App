@@ -2,6 +2,9 @@ export const deleteConversation = async (id) => {
     try {
       const response = await fetch(import.meta.env.VITE_HOST + `/conversations${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+        },
       });
   
       if (!response.ok) {
