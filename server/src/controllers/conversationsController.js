@@ -6,7 +6,7 @@ exports.getConversation = async (req, res) => {
   try {
     const conversation = await prisma.conversation.findUnique({
       where: { id: parseInt(id) },
-      include: { messages: true, chatMembers: true },
+      include: { chatMembers: true },
     });
 
     if (!conversation) {
