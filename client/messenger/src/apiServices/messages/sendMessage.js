@@ -6,6 +6,7 @@ export const sendMessage = async (conversationId, content, senderId) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
           body: JSON.stringify({ content, senderId }),
         }
