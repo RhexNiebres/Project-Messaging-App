@@ -15,7 +15,7 @@ export const fetchConversations = async (userId) => {
 
     const data = await response.json();
 
-    return { success: true, conversations: data.conversationIds };
+    return { success: true, conversations: data };
   } catch (error) {
     return { success: false, error: error.message };
   }
