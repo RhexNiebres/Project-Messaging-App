@@ -18,7 +18,7 @@ const AddConversation = ({ currentUserId }) => {
     const getUsers = async () => {
       const result = await fetchUsers();
       if (result.success) {
-        // exclude current user 
+        // excludes current user 
         const filtered = result.user.filter(
           (user) => user.id !== parseInt(currentUserId) 
         );
@@ -73,20 +73,20 @@ const AddConversation = ({ currentUserId }) => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-white shadow-md rounded-md flex flex-col justify-start items-start">
-      <h2 className="text-lg font-semibold mb-4">Start a Conversation</h2>
+    <div className="p-4 max-w-80 mx-auto bg-white shadow-md rounded-md ">
+      <h2 className="text-lg font-semibold mb-4 bg-blue-500 p-4 rounded-t-xl text-white text-center">Start a Conversation</h2>
 
       {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
 
       <input
         type="text"
-        placeholder="Search by username or email"
+        placeholder="Search friends by username or email"
         className="input input-bordered w-full mb-3 px-3 py-2 border rounded-md"
         value={searchTerm}
         onChange={handleSearch}
       />
 
-      <ul className="mb-4 max-h-40 overflow-y-auto">
+      <ul className="mb-4 max-h-40 overflow-y-auto ">
         {filteredUsers.map((user) => (
           <li
             key={user.id}
@@ -95,7 +95,7 @@ const AddConversation = ({ currentUserId }) => {
             }`}
             onClick={() => setSelectedUserId(user.id)}
           >
-            <p className="font-medium">{user.username}</p>
+            <p className="font-medium text-blue-600">{user.username}</p>
             <p className="text-sm text-gray-500">{user.email}</p>
           </li>
         ))}
@@ -103,8 +103,8 @@ const AddConversation = ({ currentUserId }) => {
 
       <button
         onClick={handleStartConversation}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
-        disabled={!selectedUserId || loading}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md w-full disabled:bg-gray-400 disabled:cursor-not-allowed"
+        disabled={!selectedUserId || loading} 
       >
         {loading ? "Creating..." : "Start Conversation"}
       </button>
