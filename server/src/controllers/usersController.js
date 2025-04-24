@@ -43,3 +43,39 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ error: "Error updating user information" });
   }
 };
+
+exports.checkUserExistence = async (req, res) => {
+  const { username, email, userId } = req.body;
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        AND: [
+          {
+            OR: [
+              { username },
+              { email },
+            ],
+          },
+          {
+            id: {
+              not: parseInt(userId), 
+            },
+          },
+        ],
+      },
+    });
+
+    if (user) {
+      return res.status(400).json({
+        success: false,
+        error: "Username or email already exists.",
+      });
+    }
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Error checking user existence:", error);
+    res.status(500).json({ error: "Error checking user existence", details: error.message });
+  }
+};
+
