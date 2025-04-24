@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchConversations } from "../apiServices/conversations/fecthConversations"; // Use your function here
+import { fetchConversations } from "../apiServices/conversations/fetchConversations";
 import { useNavigate } from "react-router-dom";
 
 const ConversationList = ({ currentUserId }) => {
