@@ -9,17 +9,43 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    gender: "NON_SPECIFIED", // with default value
+    gender: "NON_SPECIFIED",
   });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); 
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    const usernameRegex = /^.{8,}$/; 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
+    const passwordRegex = /^.{8,}$/;  
+
+ 
+    if (!usernameRegex.test(credentials.username)) {
+      setError("Username must be at least 8 characters long.");
+      return;
+    }
+
+
+    if (!emailRegex.test(credentials.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+
+    if (!passwordRegex.test(credentials.password)) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+  
     if (credentials.password !== credentials.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
+
+    setLoading(true); 
 
     try {
       const data = await signup({
@@ -29,9 +55,12 @@ const Signup = () => {
         gender: credentials.gender,
       });
 
-      alert("Account Created  Successful! Please log in.");
+      alert("Account Created Successfully! Please log in.");
+      navigate("/login"); 
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -102,16 +131,18 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-400 transition duration-200"
+            className={`w-full text-white font-semibold py-3 rounded-md hover:bg-blue-400 transition duration-200 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500'}`}
+            disabled={loading} 
           >
-            Sign Up
+            {loading ? "Signing Up..." : "Sign Up"} 
           </button>
+
           <div className="flex justify-center mt-4 border-t-2">
             <button
               onClick={() => navigate("/login")}
               className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
             >
-              Already have a account?
+              Already have an account?
             </button>
           </div>
         </form>
