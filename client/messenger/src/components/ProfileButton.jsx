@@ -42,7 +42,7 @@ const ProfileButton = () => {
   return user ? (
     <button
       onClick={() => navigate("/profile")}
-      className="flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-slate-100 hover:text-blue-600 transition-all duration-200 shadow-sm"
+      className="flex items-center space-x-2 bg-white text-blue-500 px-4 py-2 rounded-md hover:bg-gray-100 hover:text-blue-600 transition-all duration-200 shadow-sm"
     >
       <img
         src={getAvatar(user.gender)}
