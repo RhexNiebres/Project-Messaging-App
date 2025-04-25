@@ -5,22 +5,39 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState(null);
 
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+  const passwordRegex = /^.{8,}$/;
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
+   
+    if (!emailRegex.test(credentials.email)) {
+      setError("Please enter a valid email.");
+      return;
+    }
+
+    
+    if (!passwordRegex.test(credentials.password)) {
+      setError("Please enter a valid password.");
+      return;
+    }
+
     try {
       const data = await login(credentials);
       localStorage.setItem("token", data.token);
       localStorage.setItem("authorId", data.id);
+      navigate("/home"); 
     } catch (err) {
       setError(err.message);
     }
   };
- 
 
   return (
     <div>
@@ -35,11 +52,11 @@ const Login = () => {
         >
           <div className="mb-4">
             <input
-              type="text"
-              placeholder="Username"
-              value={credentials.username}
+              type="email"
+              placeholder="Email"
+              value={credentials.email}
               onChange={(e) =>
-                setCredentials({ ...credentials, username: e.target.value })
+                setCredentials({ ...credentials, email: e.target.value })
               }
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -64,12 +81,12 @@ const Login = () => {
             Login
           </button>
           <div className="flex justify-center border-t-2 mt-4">
-          <button
-            onClick={() => navigate("/signup")}
-            className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
-          >
-            Create new account?
-          </button>
+            <button
+              onClick={() => navigate("/signup")}
+              className="bg-green-500 rounded-md p-2 font-semibold text-white mt-5 "
+            >
+              Create new account?
+            </button>
           </div>
         </form>
       </div>
