@@ -9,6 +9,7 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
@@ -17,25 +18,25 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-   
     if (!emailRegex.test(credentials.email)) {
       setError("Please enter a valid email.");
       return;
     }
 
-    
     if (!passwordRegex.test(credentials.password)) {
       setError("Please enter a valid password.");
       return;
     }
-
+    setIsLoading(true);
     try {
       const data = await login(credentials);
       localStorage.setItem("token", data.token);
       localStorage.setItem("authorId", data.id);
-      navigate("/home"); 
+      navigate("/home");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,10 +77,16 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-500 transition duration-200"
+            disabled={isLoading}
+            className={`w-full font-semibold py-3 rounded-md transition duration-200 ${
+              isLoading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-500 text-white"
+            }`}
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </button>
+
           <div className="flex justify-center border-t-2 mt-4">
             <button
               onClick={() => navigate("/signup")}
