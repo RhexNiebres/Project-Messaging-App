@@ -1,11 +1,13 @@
-export const fetchConversations = async (userId) => {
+export const fetchConversations = async (userId, recipientUserId) => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/users/${userId}/conversations`,
+      `${import.meta.env.VITE_HOST}/users/${userId}/conversations${
+        recipientUserId ? `?recipientUserId=${recipientUserId}` : ""
+      }`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
