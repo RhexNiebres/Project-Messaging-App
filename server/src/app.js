@@ -14,6 +14,14 @@ app.options("*", cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static('public', {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.js')) {
+      res.set('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/users", usersRoutes);
