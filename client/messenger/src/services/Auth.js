@@ -54,8 +54,6 @@ export const logout = () => {
 };
 
 export const isAuthenticated = () => !!getToken();
-export const getUserRole = () => localStorage.getItem("role");
-
 export const getUser = async () => {
   const token = getToken();
   if (!token) return null;
