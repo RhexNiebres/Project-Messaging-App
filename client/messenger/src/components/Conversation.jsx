@@ -28,13 +28,14 @@ const Conversation = ({ id }) => {
 
   return (
     <>
-      <div className="p-4 ">
-        <p>
+      <div className="p-4">
+        <div className="mt-4 bg-blue-500 text-white p-5 rounded-xl" >
+          <p>
           <strong>Members:</strong>{" "}
           {conversation.chatMembers.map((m) => m.username).join(", ")}
         </p>
-        <h2 className="text-lg font-semibold">Messages</h2>
-        <MessageBoard conversationId={conversation.id} senderId={senderId} />
+          <MessageBoard conversationId={conversation.id} senderId={senderId} />
+        </div>
       </div>
     </>
   );
