@@ -37,7 +37,7 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
   };
 
   return (
-    <div className="p-4 max-w-80  h-[33.33vh] mx-5 bg-white shadow-md rounded-md ">
+    <div className="p-4 max-w-80  h-1/3 mx-5 bg-white shadow-md rounded-md ">
       <h2 className="text-lg font-semibold mb-4 bg-blue-500 p-4 rounded-2xl text-white text-center">
         Find user to chat
       </h2>
@@ -52,11 +52,11 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
         onChange={handleSearch}
       />
 
-      <ul className="mb-4 max-h-40 overflow-y-auto">
-        {filteredUsers.map((user) => (
+      <ul className="mb-4 max-h-40 overflow-y-auto w-full">
+        {filteredUsers.length > 0 ? ( filteredUsers.map((user) => (
           <li
             key={user.id}
-            className={`cursor-pointer px-3 py-2 rounded-md hover:bg-blue-100 ${
+            className={`cursor-pointer px-3 py-2 rounded-md  hover:bg-blue-100 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             onClick={() => !loading && verifyExistingConversation(user.id)}
@@ -64,7 +64,10 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
             <p className="font-medium text-blue-600">{user.username}</p>
             <p className="text-sm text-gray-500">{user.email}</p>
           </li>
-        ))}
+        ))):(
+          <li className="text-gray-400 w-full px-3 py-2 rounded-md">No user exist with that username or email</li>
+        )}
+       
       </ul>
     </div>
   );
