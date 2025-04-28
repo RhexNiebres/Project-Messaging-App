@@ -17,13 +17,13 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const usernameRegex = /^.{8,}$/; 
+    const usernameRegex = /^.{7,}$/; 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
     const passwordRegex = /^.{8,}$/;  
 
  
     if (!usernameRegex.test(credentials.username)) {
-      setError("Username must be at least 8 characters long.");
+      setError("Username must be at least 7 characters long.");
       return;
     }
 
