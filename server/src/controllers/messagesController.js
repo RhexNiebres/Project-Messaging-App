@@ -12,6 +12,7 @@ exports.getMessageByConversation = async (req, res) => {
           orderBy: {
             createdAt: "asc",
           },
+          include: { sender: true },
         },
       },
     });
@@ -36,7 +37,7 @@ exports.sendMessage = async (req, res) => {
     });
 
     if (!conversation) {
-      res.status(404).json({ message: "Conversation not found" });
+     return res.status(404).json({ message: "Conversation not found" });
     }
 
     const message = await prisma.message.create({
