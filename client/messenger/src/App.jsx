@@ -1,11 +1,11 @@
 import '../src/styles/App.css';  
 import NavBar from './components/NavBar';
-import LandingPage from './pages/LandingPage';
-
+import { Outlet } from 'react-router-dom';
 const App = () => {
   return (
     <div>
-      <LandingPage/>
+      <NavBar/>
+      <Outlet/>
     </div>
   );
 };
