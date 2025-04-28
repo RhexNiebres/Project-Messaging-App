@@ -18,6 +18,7 @@ app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/conversations", conversationsRoutes);
+app.use("/conversations", messagesRoutes);
 app.use("/messages", messagesRoutes);
 
 app.listen(process.env.APP_PORT, () =>
