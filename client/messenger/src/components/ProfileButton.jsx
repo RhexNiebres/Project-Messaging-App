@@ -49,7 +49,7 @@ const ProfileButton = () => {
         alt="User avatar"
         className="w-8 h-8 rounded-full object-cover"
       />
-      <span className="font-medium">{user.username}</span>
+      <span className=" font-bold">{user.username}</span>
     </button>
   ) : (
     <p>Loading...</p>
