@@ -7,16 +7,23 @@ import UserProfile from "./pages/UserProfile";
 import ProtectedRoute from "./services/ProtectedRoute";
 import "../src/styles/App.css";
 import App from "./App";
+import LandingPage from "./pages/LandingPage"
+import NotFoundPage from "./pages/NotFound";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<App />} />
+      <Route index element={<LandingPage />} />
+
       <Route path="/login" element={<Login role="user" />} />
       <Route path="/signup" element={<Signup role="user" />} />
+
+      <Route path="*" element={<NotFoundPage/>} />
+
       <Route element={<ProtectedRoute />}>
-      <Route path="/home" element={<Home />} />
-      <Route path="/profile" element={<UserProfile />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Route>
     </Routes>
   );
