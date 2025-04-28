@@ -10,7 +10,7 @@ exports.getConversation = async (req, res) => {
     });
 
     if (!conversation) {
-      res.status(404).json({ message: "Conversation not found" });
+      return res.status(404).json({ message: "Conversation not found" });
     }
 
     res.json(conversation);
@@ -19,25 +19,38 @@ exports.getConversation = async (req, res) => {
   }
 };
 
-
 exports.getUserConversations = async (req, res) => {
   const { id } = req.params;
+  const currentUserId = parseInt(id);
+  const recipientUserId = req.query.recipientUserId
+    ? parseInt(req.query.recipientUserId)
+    : null;
   try {
-    const conversations = await prisma.conversation.findMany({
+    const conversation = await prisma.conversation.findMany({
       where: {
-        chatMembers: {
-          some: {
-            id: parseInt(id), 
+        AND: [
+          {
+            chatMembers: {
+              some: { id: currentUserId },
+            },
           },
-        },
+          recipientUserId && {
+            chatMembers: {
+              some: { id: recipientUserId },
+            },
+          },
+        ].filter(Boolean),
       },
       include: {
         chatMembers: true,
       },
     });
-
-    res.json(conversations); 
+    if (!conversation || conversation.length === 0) {
+      return res.json({ conversationIds: [] });
+    }
+    res.json(conversation);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching user's conversations" });
   }
 };
@@ -50,11 +63,15 @@ exports.createConversation = async (req, res) => {
         .status(400)
         .json({ message: "at least 2 members are required" });
     }
+
     const conversation = await prisma.conversation.create({
       data: {
-        chatMembers: { connect: chatMembers.map((userId) => ({ id: userId })) },
+        chatMembers: {
+          connect: chatMembers.map((userId) => ({ id: parseInt(userId) })),
+        },
       },
     });
+
     res.status(201).json(conversation);
   } catch (error) {
     res.status(500).json({ error: "Error Creating conversation" });
