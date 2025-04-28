@@ -1,7 +1,7 @@
 export const sendMessage = async (conversationId, content, senderId) => {
     try {
       const response = await fetch(
-        import.meta.env.VITE_HOST + `/${conversationId}/messages`,
+        import.meta.env.VITE_HOST + `/conversations/${conversationId}/messages`,
         {
           method: "POST",
           headers: {
