@@ -22,7 +22,7 @@ export const signup = async (credentials) => {
 };
 
 export const login = async (credentials) => {
-  const response = await fetch(`${import.meta.env.VITE_HOST}/log-in`, {
+  const response = await fetch(import.meta.env.VITE_HOST + "/log-in", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
