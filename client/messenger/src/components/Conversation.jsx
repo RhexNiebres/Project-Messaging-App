@@ -29,11 +29,11 @@ const Conversation = ({ id }) => {
   return (
     <>
       <div className="p-4">
-        <div className="mt-4 bg-blue-500 text-white p-5 rounded-xl" >
+        <div className="mt-4 bg-blue-500 text-white p-5 rounded-xl">
           <p>
-          <strong>Members:</strong>{" "}
-          {conversation.chatMembers.map((m) => m.username).join(", ")}
-        </p>
+            <strong>Members:</strong>{" "}
+            {conversation.chatMembers.map((m) => m.username).join(", ")}
+          </p>
           <MessageBoard conversationId={conversation.id} senderId={senderId} />
         </div>
       </div>
