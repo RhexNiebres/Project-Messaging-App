@@ -25,6 +25,10 @@ exports.getUserConversations = async (req, res) => {
   const recipientUserId = req.query.recipientUserId
     ? parseInt(req.query.recipientUserId)
     : null;
+
+  console.log("Current User ID:", currentUserId);
+  console.log("Recipient User ID:", recipientUserId);
+
   try {
     const conversation = await prisma.conversation.findMany({
       where: {
