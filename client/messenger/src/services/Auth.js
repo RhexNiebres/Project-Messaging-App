@@ -16,7 +16,7 @@ export const signup = async (credentials) => {
   localStorage.setItem("username", data.username);
   localStorage.setItem("email", data.email);
   localStorage.setItem("gender", data.gender);
-  
+
   window.location.href = "/login";
   return data;
 };
@@ -39,7 +39,7 @@ export const login = async (credentials) => {
   localStorage.setItem("username", data.username);
   localStorage.setItem("email", data.email);
   localStorage.setItem("gender", data.gender);
-  
+
   window.location.href = "/home";
   return data;
 };
