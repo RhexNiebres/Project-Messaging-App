@@ -7,7 +7,6 @@ import { fetchConversations } from "../apiServices/conversations/fetchConversati
 import UserList from "../components/UserList";
 import Conversation from "../components/Conversation";
 
-
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -59,7 +58,9 @@ const Home = () => {
           {existingConversation ? (
             <Conversation id={existingConversation.id} />
           ) : (
-            <p className=" flex justify-center items-center p-5 bg-blue-500 font-bold rounded-lg text-white">Select a user to start a conversation</p>
+            <p className=" flex justify-center items-center p-5 bg-blue-500 font-bold rounded-lg text-white">
+              Select a user to start a conversation
+            </p>
           )}
         </div>
       </div>
