@@ -12,40 +12,36 @@ const Signup = () => {
     gender: "NON_SPECIFIED",
   });
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const usernameRegex = /^.{7,}$/; 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
-    const passwordRegex = /^.{8,}$/;  
+    const usernameRegex = /^.{7,}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^.{8,}$/;
 
- 
     if (!usernameRegex.test(credentials.username)) {
       setError("Username must be at least 7 characters long.");
       return;
     }
-
 
     if (!emailRegex.test(credentials.email)) {
       setError("Please enter a valid email address.");
       return;
     }
 
-
     if (!passwordRegex.test(credentials.password)) {
       setError("Password must be at least 8 characters long.");
       return;
     }
 
-  
     if (credentials.password !== credentials.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const data = await signup({
@@ -56,11 +52,11 @@ const Signup = () => {
       });
 
       alert("Account Created Successfully! Please log in.");
-      navigate("/login"); 
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -131,10 +127,12 @@ const Signup = () => {
 
           <button
             type="submit"
-            className={`w-full text-white font-semibold py-3 rounded-md hover:bg-blue-400 transition duration-200 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500'}`}
-            disabled={loading} 
+            className={`w-full text-white font-semibold py-3 rounded-md hover:bg-blue-400 transition duration-200 ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500"
+            }`}
+            disabled={loading}
           >
-            {loading ? "Signing Up..." : "Sign Up"} 
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
 
           <div className="flex justify-center mt-4 border-t-2">
