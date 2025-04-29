@@ -1,15 +1,16 @@
-const dotenv =require("dotenv");
+const dotenv = require("dotenv");
+const envFile =
+  process.env.NODE_ENV === "production"
+    ? ".env.production"
+    : ".env.development";
+dotenv.config({ path: envFile });
 const express = require("express");
 const app = express();
-
-const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
-dotenv.config({ path: envFile });
-
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
-const usersRoutes = require("./routes/users")
-const conversationsRoutes = require("./routes/conversations")
-const messagesRoutes = require("./routes/messages")
+const usersRoutes = require("./routes/users");
+const conversationsRoutes = require("./routes/conversations");
+const messagesRoutes = require("./routes/messages");
 const cors = require("cors");
 
 app.use(cors({ origin: "*", credentials: true }));
