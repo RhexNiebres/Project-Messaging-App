@@ -27,11 +27,11 @@ const ProfileButton = () => {
   const getAvatar = (gender) => {
     switch (gender?.toLowerCase()) {
       case "male":
-        return "/images/male.jpg";
+        return "/male.jpg";
       case "female":
-        return "/images/female.jpg";
+        return "/female.jpg";
       default:
-        return "/images/non_specified.jpg";
+        return "/non_specified.jpg";
     }
   };
 
