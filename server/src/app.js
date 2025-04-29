@@ -15,7 +15,7 @@ const cors = require("cors");
 
 app.use(cors({
   origin: process.env.MESSAGELY_CLIENT_HOST, //Netlify URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
