@@ -28,7 +28,7 @@ const ConversationList = ({ currentUserId, setExistingConversation }) => {
   return (
     <div className="p-4 max-w-80 h-2/3 mx-5 bg-white shadow-md rounded-md">
       <h2 className="text-lg font-semibold mb-4 text-center text-white bg-blue-500 p-2 rounded-2xl">
-       Select Conversation
+        Select Conversation
       </h2>
 
       {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
