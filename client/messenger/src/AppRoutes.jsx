@@ -8,7 +8,7 @@ import ProtectedRoute from "./services/ProtectedRoute";
 import "../src/styles/App.css";
 import App from "./App";
 import LandingPage from "./pages/LandingPage";
-import NotFoundPage from "./pages/NotFound";
+// import NotFoundPage from "./pages/NotFound";
 
 const AppRoutes = () => {
   return (
@@ -23,7 +23,7 @@ const AppRoutes = () => {
         <Route path="/profile" element={<UserProfile />} />
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
+      {/* <Route path="*" element={<NotFoundPage />} /> */}
     </Routes>
   );
 };
