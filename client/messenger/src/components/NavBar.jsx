@@ -1,14 +1,17 @@
-import { getToken, logout } from "../services/Auth"; 
+import { getToken, logout } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const token = getToken(); 
+  const token = getToken();
 
   return (
     <nav className="bg-blue-500 p-4 flex justify-between items-center text-white">
-         <div className="flex items-center cursor-pointer" onClick={() => navigate("/home")}>
+      <div
+        className="flex items-center cursor-pointer"
+        onClick={() => navigate("/home")}
+      >
         <h1 className="text-2xl font-bold">Messagely</h1>
       </div>
 
@@ -30,11 +33,11 @@ const NavBar = () => {
           </>
         ) : (
           <div className="space-x-4 flex">
-              <ProfileButton/>
-          
-           <button
-            onClick={() => logout(navigate)}
-            className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+            <ProfileButton />
+
+            <button
+              onClick={() => logout(navigate)}
+              className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
             >
               Log Out
             </button>
