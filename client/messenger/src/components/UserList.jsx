@@ -7,7 +7,7 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  
+
   useEffect(() => {
     const getUsers = async () => {
       const result = await fetchUsers();
@@ -53,21 +53,24 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
       />
 
       <ul className="mb-4 max-h-40 overflow-y-auto w-full">
-        {filteredUsers.length > 0 ? ( filteredUsers.map((user) => (
-          <li
-            key={user.id}
-            className={`cursor-pointer px-3 py-2 rounded-md  hover:bg-blue-100 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            onClick={() => !loading && verifyExistingConversation(user.id)}
-          >
-            <p className="font-medium text-blue-600">{user.username}</p>
-            <p className="text-sm text-gray-500">{user.email}</p>
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
+            <li
+              key={user.id}
+              className={`cursor-pointer px-3 py-2 rounded-md  hover:bg-blue-100 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={() => !loading && verifyExistingConversation(user.id)}
+            >
+              <p className="font-medium text-blue-600">{user.username}</p>
+              <p className="text-sm text-gray-500">{user.email}</p>
+            </li>
+          ))
+        ) : (
+          <li className="text-gray-400 w-full px-3 py-2 rounded-md">
+            No user exist with that username or email
           </li>
-        ))):(
-          <li className="text-gray-400 w-full px-3 py-2 rounded-md">No user exist with that username or email</li>
         )}
-       
       </ul>
     </div>
   );
