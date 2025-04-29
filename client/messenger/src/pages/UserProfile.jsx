@@ -14,7 +14,7 @@ const UserProfile = () => {
   const [newGender, setNewGender] = useState("");
   const [editError, setEditError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [passwordUpdated, setPasswordUpdated] = useState(false); 
+  const [passwordUpdated, setPasswordUpdated] = useState(false);
 
   const userId = localStorage.getItem("userId");
 
@@ -101,10 +101,9 @@ const UserProfile = () => {
         setEditError(null);
 
         if (newPassword) {
-          setPasswordUpdated(true); 
-          setTimeout(() => setPasswordUpdated(false), 3000); 
+          setPasswordUpdated(true);
+          setTimeout(() => setPasswordUpdated(false), 3000);
         }
-
 
         setNewPassword("");
         setConfirmPassword("");
@@ -131,7 +130,9 @@ const UserProfile = () => {
       {error && <p className="text-red-500">{error}</p>}
       {editError && <p className="text-red-500">{editError}</p>}
       {passwordUpdated && (
-        <p className="text-green-500 text-center mt-2">Password updated successfully!</p>
+        <p className="text-green-500 text-center mt-2">
+          Password updated successfully!
+        </p>
       )}
       {userData ? (
         <div className="flex flex-col text-white items-center justify-center mt-20 bg-blue-500 rounded-2xl p-10 mx-auto max-w-lg w-full">
