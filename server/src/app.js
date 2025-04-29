@@ -13,13 +13,8 @@ const conversationsRoutes = require("./routes/conversations");
 const messagesRoutes = require("./routes/messages");
 const cors = require("cors");
 
-app.use(cors({
-  origin: process.env.MESSAGELY_CLIENT_HOST, //Netlify URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-app.options('*', cors());
+app.use(cors({ origin: "*", credentials: true }));
+app.options("*", cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
