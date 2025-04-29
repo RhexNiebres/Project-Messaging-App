@@ -1,6 +1,10 @@
-require("dotenv").config();
+const dotenv =require("dotenv");
 const express = require("express");
 const app = express();
+
+const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
+dotenv.config({ path: envFile });
+
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users")
