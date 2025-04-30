@@ -62,20 +62,42 @@ exports.createConversation = async (req, res) => {
     if (!chatMembers || chatMembers.length < 2) {
       return res
         .status(400)
-        .json({ message: "at least 2 members are required" });
+        .json({ message: "At least 2 members are required" });
     }
 
-    const conversation = await prisma.conversation.create({
-      data: {
+    const sortedMembers = chatMembers
+      .map((id) => parseInt(id))
+      .sort((a, b) => a - b);//sort asc order
+
+    const existingConversation = await prisma.conversation.findFirst({
+      where: {
         chatMembers: {
-          connect: chatMembers.map((userId) => ({ id: parseInt(userId) })),
+          every: {
+            id: { in: sortedMembers }, //contains all members
+          },
         },
+      },
+      include: {
+        chatMembers: true,
       },
     });
 
-    res.status(201).json(conversation);
+    if (existingConversation) {
+      return res.json(existingConversation);
+    }
+    const newConversation = await prisma.conversation.create({
+      data: {
+        chatMembers: {
+          connect: sortedMembers.map((id) => ({ id })),
+        },
+      },
+      include: {
+        chatMembers: true,
+      },
+    });
+    return res.status(201).json(newConversation);
   } catch (error) {
-    res.status(500).json({ error: "Error Creating conversation" });
+    res.status(500).json({ message: "Error creating conversation" });
   }
 };
 
