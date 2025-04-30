@@ -49,9 +49,6 @@ exports.getUserConversations = async (req, res) => {
         chatMembers: true,
       },
     });
-    if (!conversation || conversation.length === 0) {
-      return res.json({ conversationIds: [] });
-    }
     res.json(conversation);
   } catch (error) {
     console.log(error);
