@@ -125,7 +125,7 @@ const UserProfile = () => {
     newGender === userData?.gender;
 
   return (
-    <div>
+    <div >
       <NavBar />
       {error && <p className="text-red-500">{error}</p>}
       {editError && <p className="text-red-500">{editError}</p>}
@@ -135,15 +135,15 @@ const UserProfile = () => {
         </p>
       )}
       {userData ? (
-        <div className="flex flex-col text-white items-center justify-center mt-20 bg-blue-500 rounded-2xl p-10 mx-auto max-w-lg w-full">
+        <div className="flex flex-col text-white items-center justify-center mt-20 bg-blue-500 rounded-2xl p-10 mx-auto max-w-lg w-full shadow-2xl">
           <img
             src={getAvatar(userData.gender)}
             alt="User Avatar"
-            className="w-32 h-32 rounded-full shadow-md mb-4"
+            className="w-32 h-32 rounded-full shadow-md mb-4 "
           />
-          <div className="text-blue-500 flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-2xl">
-            <h1 className="text-xl font-bold">{userData.username}'s details</h1>
-            <div className="flex flex-col gap-2">
+          <div className="text-blue-500 flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-2xl w-full">
+            <h1 className="text-gray-100 text-2xl font-bold p-2 bg-blue-500 rounded-xl">{userData.username}'s details</h1>
+            <div className="flex flex-col gap-3 w-full text-gray-400">
               <input
                 type="text"
                 value={newUsername}
@@ -188,7 +188,7 @@ const UserProfile = () => {
                 disabled={isSaveDisabled || loading}
                 className={`px-4 py-2 rounded-md text-white scale-95 transition-transform duration-300 ${
                   isSaveDisabled || loading
-                    ? "bg-green-300 cursor-not-allowed"
+                    ? "bg-gray-300 cursor-not-allowed"
                     : "bg-green-500 hover:scale-110"
                 }`}
               >
