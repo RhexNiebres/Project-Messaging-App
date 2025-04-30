@@ -4,6 +4,8 @@ import ConversationList from "../components/ConversationList";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { fetchConversations } from "../apiServices/conversations/fetchConversations";
+import { createConversation } from "../apiServices/conversations/createConversations";
+
 import UserList from "../components/UserList";
 import Conversation from "../components/Conversation";
 
@@ -20,18 +22,26 @@ const Home = () => {
       setErrorMsg("Both users need to be selected");
       return;
     }
-
+  
     setLoading(true);
     setErrorMsg("");
-
+    setSelectedRecipient(recipientId);
+  
     try {
       const result = await fetchConversations(currentUserId, recipientId);
-
+  
       if (result.success && result.conversations.length > 0) {
-        const conversation = result.conversations[0];
-        setExistingConversation(conversation);
+        setExistingConversation(result.conversations[0]);
       } else {
-        setExistingConversation(null);
+        const creationResult = await createConversation([
+          parseInt(currentUserId),
+          parseInt(recipientId),
+        ]);
+        if (creationResult.success) {
+          setExistingConversation(creationResult.conversation);
+        } else {
+          setErrorMsg(creationResult.error);
+        }
       }
     } catch (err) {
       setErrorMsg("Failed to fetch or create conversation");
@@ -39,6 +49,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+  
   return (
     <>
       <NavBar />
