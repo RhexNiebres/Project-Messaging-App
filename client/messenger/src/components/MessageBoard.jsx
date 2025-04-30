@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { fetchMessagesByConversationId } from "../apiServices/messages/fetchMessagesByConversationId";
 import { sendMessage } from "../apiServices/messages/sendMessage";
 import { deleteMessageById } from "../apiServices/messages/deleteMessageById";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 const MessageBoard = ({ conversationId, senderId }) => {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState("");
@@ -71,33 +73,36 @@ const MessageBoard = ({ conversationId, senderId }) => {
           messages.map((message) => (
             <div
               key={message.id}
-              className={`message w-56 mx-2 bg-gray-100 p-3 rounded shadow-lg flex items-start ${
+              className={`message w-1/2 mx-2 bg-gray-100 p-2 rounded shadow-lg flex  ${
                 message.sender?.id === senderId
                   ? "ml-auto justify-end"
                   : "mr-auto"
               }`}
             >
               <div
-                className={`w-full max-w-[60%] ${
+                className={`w-full ${
                   message.sender?.id === senderId ? "text-right" : "text-left"
                 }`}
               >
                 <p className="font-extrabold text-blue-500">
                   {message.sender?.username || "Unknown"}
                 </p>
-                <p className="text-md font-medium text-black">
+                <p className="text-md font-medium text-black ">
                   {message.content}
                 </p>
-                <p className="text-xs text-gray-400">
-                  {new Date(message.createdAt).toLocaleString()}
+                <p className="text-s text-gray-400">
+                  sent: {new Date(message.createdAt).toLocaleString()}
                 </p>
               </div>
               {message.sender?.id === senderId && (
                 <button
-                  className="text-red-500 text-sm hover:underline font-extrabold ml-2"
+                  className=" m-4 "
                   onClick={() => handleDeleteMessage(message.id)}
                 >
-                  Delete
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="text-red-500 scale-125 hover:scale-150 transition-transform duration-300"
+                  />
                 </button>
               )}
             </div>
@@ -119,10 +124,10 @@ const MessageBoard = ({ conversationId, senderId }) => {
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white font-bold px-9 py-3 rounded hover:bg-blue-600 disabled:opacity-50  m-4"
+            className="bg-blue-500 text-white font-bold px-9 py-3 rounded hover:bg-blue-600 disabled:opacity-50  m-4 scale-100 hover:scale-110 transition-transform duration-300"
             disabled={submitting}
           >
-            {submitting ? "Sending..." : "Send"}
+            {submitting ? "Sending..." : <FontAwesomeIcon icon={faPaperPlane} className="scale-150"/>}
           </button>
         </form>
       </div>
