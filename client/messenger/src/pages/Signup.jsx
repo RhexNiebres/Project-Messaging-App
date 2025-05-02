@@ -127,7 +127,7 @@ const Signup = () => {
           </label>
           <input
             id="confirmPassword"
-            type="confirmPassword"
+            type="password"
             placeholder="Confirm Password"
             value={credentials.confirmPassword}
             onChange={(e) =>
