@@ -11,7 +11,7 @@ export const signup = async (credentials) => {
   }
 
   const data = await response.json();
-  localStorage.setItem("token", data.token); 
+  localStorage.setItem("token", data.token);
   return data;
 };
 
