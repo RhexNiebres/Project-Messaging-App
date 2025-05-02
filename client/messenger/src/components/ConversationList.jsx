@@ -26,8 +26,8 @@ const ConversationList = ({ currentUserId, setExistingConversation }) => {
   }, [currentUserId]);
 
   return (
-    <div className="p-4 max-w-80 h-2/3 mx-5 bg-white shadow-md rounded-md">
-      <h2 className="text-lg font-semibold mb-4 text-center text-white bg-blue-500 p-2 rounded-2xl">
+    <div className="p-4 max-w-80 h-2/3 mx-5 bg-white shadow-md rounded-md overflow-y-auto">
+      <h2 className="text-lg font-semibold mb-4 text-center text-white bg-blue-500 p-2 rounded-2xl sticky top-0">
         Select Conversation
       </h2>
 
