@@ -4,8 +4,7 @@ import ConversationList from "../components/ConversationList";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { fetchConversations } from "../apiServices/conversations/fetchConversations";
-import { createConversation } from "../apiServices/conversations/createConversations";
-
+import NewMessageForm from "../components/NewMessageForm";
 import UserList from "../components/UserList";
 import Conversation from "../components/Conversation";
 
@@ -22,34 +21,27 @@ const Home = () => {
       setErrorMsg("Both users need to be selected");
       return;
     }
-  
+
     setLoading(true);
     setErrorMsg("");
     setSelectedRecipient(recipientId);
-  
+
     try {
       const result = await fetchConversations(currentUserId, recipientId);
-  
+
       if (result.success && result.conversations.length > 0) {
         setExistingConversation(result.conversations[0]);
       } else {
-        const creationResult = await createConversation([
-          parseInt(currentUserId),
-          parseInt(recipientId),
-        ]);
-        if (creationResult.success) {
-          setExistingConversation(creationResult.conversation);
-        } else {
-          setErrorMsg(creationResult.error);
-        }
+        setExistingConversation(null);
       }
     } catch (err) {
+      setExistingConversation(null);
       setErrorMsg("Failed to fetch or create conversation");
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
     <>
       <NavBar />
@@ -66,12 +58,20 @@ const Home = () => {
           />
         </div>
         <div className="w-screen flex justify-center items-center h-[88vh] pt-11">
-          {existingConversation ? (
-            <Conversation id={existingConversation.id} />
-          ) : (
+          {!selectedRecipient ? (
             <p className=" flex justify-center items-center p-5 bg-blue-500 font-bold rounded-lg text-white">
               Select a user to start a conversation
             </p>
+          ) : existingConversation ? (
+            <Conversation id={existingConversation.id} />
+          ) : (
+            <NewMessageForm
+              currentUserId={currentUserId}
+              recipientId={selectedRecipient}
+              onConversationCreated={(conversation) => {
+                setExistingConversation(conversation);
+              }}
+            />
           )}
         </div>
       </div>
