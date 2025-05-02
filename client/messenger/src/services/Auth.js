@@ -11,13 +11,7 @@ export const signup = async (credentials) => {
   }
 
   const data = await response.json();
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("userId", data.userId);
-  localStorage.setItem("username", data.username);
-  localStorage.setItem("email", data.email);
-  localStorage.setItem("gender", data.gender);
-
-  window.location.href = "/login";
+  localStorage.setItem("token", data.token); 
   return data;
 };
 
@@ -40,13 +34,13 @@ export const login = async (credentials) => {
   localStorage.setItem("email", data.email);
   localStorage.setItem("gender", data.gender);
 
-  window.location.href = "/home";
   return data;
 };
 
 export const getToken = () => localStorage.getItem("token");
 
 export const getUserId = () => localStorage.getItem("userId");
+
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
