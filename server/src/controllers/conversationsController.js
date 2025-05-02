@@ -6,15 +6,31 @@ exports.getConversation = async (req, res) => {
   try {
     const conversation = await prisma.conversation.findUnique({
       where: { id: parseInt(id) },
-      include: { messages: true, chatMembers: true },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+          include: { sender: true },
+        },
+        chatMembers: true,
+      },
     });
+    const maskedConversation = {
+      ...conversation,
+      messages: conversation.messages.map((msg) => ({
+        ...msg,
+        content: msg.isDeleted ? "This message was deleted" : msg.content,
+      })),
+    };
 
     if (!conversation) {
       return res.status(404).json({ message: "Conversation not found" });
     }
 
-    res.json(conversation);
+    res.json(maskedConversation);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching conversation" });
   }
 };
@@ -26,11 +42,8 @@ exports.getUserConversations = async (req, res) => {
     ? parseInt(req.query.recipientUserId)
     : null;
 
-  console.log("Current User ID:", currentUserId);
-  console.log("Recipient User ID:", recipientUserId);
-
   try {
-    const conversation = await prisma.conversation.findMany({
+    const conversations = await prisma.conversation.findMany({
       where: {
         AND: [
           {
@@ -46,10 +59,17 @@ exports.getUserConversations = async (req, res) => {
         ].filter(Boolean),
       },
       include: {
-        chatMembers: true,
+        chatMembers: {
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            gender: true,
+          },
+        },
       },
     });
-    res.json(conversation);
+    res.json(conversations);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error fetching user's conversations" });
@@ -57,23 +77,21 @@ exports.getUserConversations = async (req, res) => {
 };
 
 exports.createConversation = async (req, res) => {
-  const { chatMembers } = req.body;
+  const { recipientId, message, senderId } = req.body;
   try {
-    if (!chatMembers || chatMembers.length < 2) {
+    if (!recipientId) {
       return res
         .status(400)
-        .json({ message: "At least 2 members are required" });
+        .json({ message: "A recipient is required to create conversation" });
     }
 
-    const sortedMembers = chatMembers
-      .map((id) => parseInt(id))
-      .sort((a, b) => a - b);//sort asc order
+    const chatMembers = [parseInt(senderId), parseInt(recipientId)];
 
     const existingConversation = await prisma.conversation.findFirst({
       where: {
         chatMembers: {
           every: {
-            id: { in: sortedMembers }, //contains all members
+            id: { in: chatMembers }, //contains all members
           },
         },
       },
@@ -85,38 +103,26 @@ exports.createConversation = async (req, res) => {
     if (existingConversation) {
       return res.json(existingConversation);
     }
+
     const newConversation = await prisma.conversation.create({
       data: {
         chatMembers: {
-          connect: sortedMembers.map((id) => ({ id })),
+          connect: chatMembers.map((id) => ({ id })),
+        },
+        messages: {
+          create: {
+            content: message,
+            senderId: parseInt(senderId),
+          },
         },
       },
       include: {
         chatMembers: true,
       },
     });
-    return res.status(201).json(newConversation);
+    return res.status(201).json({ conversation: newConversation });
   } catch (error) {
+    console.error("Error creating conversation:", error);
     res.status(500).json({ message: "Error creating conversation" });
-  }
-};
-
-exports.deleteConversation = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const conversation = await prisma.conversation.findUnique({
-      where: { id: parseInt(id) },
-    });
-
-    if (!conversation) {
-      return res.status(404).json({ message: "Conversation not found" });
-    }
-    await prisma.conversation.delete({
-      where: { id: parseInt(id) },
-    });
-    res.status(200).json({ message: "Conversation deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error Deleting conversation" });
   }
 };
