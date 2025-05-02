@@ -29,9 +29,7 @@ const Login = () => {
     }
     setIsLoading(true);
     try {
-      const data = await login(credentials);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("authorId", data.id);
+      await login(credentials);
       navigate("/home");
     } catch (err) {
       setError(err.message);
@@ -61,7 +59,9 @@ const Login = () => {
               }
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            
           </div>
+          
 
           <div className="mb-4">
             <input
