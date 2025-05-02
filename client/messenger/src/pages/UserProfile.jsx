@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { fetchUsersById } from "../apiServices/users/fetchUserById";
 import { updateUser } from "../apiServices/users/updateUser";
-import { checkUserExistence } from "../apiServices/users/checkUserExistence";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
@@ -75,18 +74,6 @@ const UserProfile = () => {
     setLoading(true);
 
     try {
-      const checkResponse = await checkUserExistence(
-        newUsername,
-        newEmail,
-        userId
-      );
-      if (!checkResponse.success) {
-        setEditError(
-          checkResponse.error || "Username or email already exists."
-        );
-        return;
-      }
-
       const updatedData = {
         username: newUsername,
         email: newEmail,
@@ -125,7 +112,7 @@ const UserProfile = () => {
     newGender === userData?.gender;
 
   return (
-    <div >
+    <div>
       <NavBar />
       {error && <p className="text-red-500">{error}</p>}
       {editError && <p className="text-red-500">{editError}</p>}
@@ -142,7 +129,9 @@ const UserProfile = () => {
             className="w-32 h-32 rounded-full shadow-md mb-4 "
           />
           <div className="text-blue-500 flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-2xl w-full">
-            <h1 className="text-gray-100 text-2xl font-bold p-2 bg-blue-500 rounded-xl">{userData.username}'s details</h1>
+            <h1 className="text-gray-100 text-2xl font-bold p-2 bg-blue-500 rounded-xl">
+              {userData.username}'s details
+            </h1>
             <div className="flex flex-col gap-3 w-full text-gray-400">
               <input
                 type="text"
