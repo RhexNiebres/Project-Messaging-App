@@ -48,7 +48,9 @@ const ConversationList = ({ currentUserId, setExistingConversation }) => {
           ))}
         </ul>
       ) : (
-        <div>No conversations yet.</div>
+        <div className="bg-blue-500 w-full h-96 flex justify-center items-center rounded-2xl">
+          <p className="text-white font-bold">No conversations yet.</p>
+        </div>
       )}
     </div>
   );
