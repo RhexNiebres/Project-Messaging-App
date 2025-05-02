@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { sendMessage } from "../apiServices/messages/sendMessage";
 import { deleteMessageById } from "../apiServices/messages/deleteMessageById";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,7 +67,10 @@ const MessageBoard = ({ conversation, senderId }) => {
 
   return (
     <div className="space-y-4 px-4 border rounded shadow-md bg-white h-[80vh] w-[80vw] flex flex-col justify-center ">
-      <div  ref={autoScrollRef} className=" messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto">
+      <div
+        ref={autoScrollRef}
+        className=" messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto"
+      >
         {messages.length === 0 ? (
           <NewMessageForm onSendMessage={handleSendMessage} />
         ) : (
@@ -97,18 +100,17 @@ const MessageBoard = ({ conversation, senderId }) => {
                 }`}
               >
                 <div className=" px-5">
-                <p className="font-extrabold text-blue-500">
-                  {message.sender?.username || "Unknown"}
-                </p>
-                <p className="text-md text-center font-medium text-black ">
-                  {message.content}
-                </p>
-                <p className="text-s text-gray-400">
-                  sent: {new Date(message.createdAt).toLocaleString()}
-                </p>
+                  <p className="font-extrabold text-blue-500">
+                    {message.sender?.username || "Unknown"}
+                  </p>
+                  <p className="text-md text-center font-medium text-black ">
+                    {message.content}
+                  </p>
+                  <p className="text-s text-gray-400">
+                    sent: {new Date(message.createdAt).toLocaleString()}
+                  </p>
                 </div>
               </div>
-              
             </div>
           ))
         )}
@@ -126,7 +128,7 @@ const MessageBoard = ({ conversation, senderId }) => {
             className="flex-grow p-2 border rounded resize-none text-black"
             disabled={submitting}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleSendMessage(e);
               }
