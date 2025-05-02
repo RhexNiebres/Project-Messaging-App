@@ -14,8 +14,8 @@ function verifyToken(req, res, next){
     return res.status(403).json({error: "Access forbidden. No token provided"});
   }
 
-  const bearer = bearerHeader.split(" ");
-  const bearerToken = bearer[1];
+  const bearer = bearerHeader.split(" ");//[bearer, token]
+  const bearerToken = bearer[1];//get token
 
   if(bearerToken){
     jwt.verify(bearerToken, process.env.JWT_SECRET,(err,decoded) => {
