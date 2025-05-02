@@ -15,7 +15,7 @@ export const deleteMessageById = async (messageId) => {
       }
   
       const data = await response.json();
-      return { success: true, message: data.message };
+      return { success: true, message: data.message, deletedMessage: data.deletedMessage};
     } catch (error) {
       return { success: false, error: error.message };
     }
