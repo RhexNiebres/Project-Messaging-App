@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,  useRef } from "react";
 import { sendMessage } from "../apiServices/messages/sendMessage";
 import { deleteMessageById } from "../apiServices/messages/deleteMessageById";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,13 @@ const MessageBoard = ({ conversation, senderId }) => {
   useEffect(() => {
     setMessages(conversation.messages);
   }, [conversation]);
-  
+
+  useEffect(() => {
+    if (autoScrollRef.current) {
+      autoScrollRef.current.scrollTop = autoScrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!messageContent.trim()) return;
@@ -61,14 +67,14 @@ const MessageBoard = ({ conversation, senderId }) => {
 
   return (
     <div className="space-y-4 px-4 border rounded shadow-md bg-white h-[80vh] w-[80vw] flex flex-col justify-center ">
-      <div className="messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto">
+      <div  ref={autoScrollRef} className=" messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto">
         {messages.length === 0 ? (
           <NewMessageForm onSendMessage={handleSendMessage} />
         ) : (
           messages.map((message) => (
             <div
               key={message.id}
-              className={`message w-2/5 mx-2 bg-gray-100 p-2 rounded-full shadow-lg flex  ${
+              className={`message w-2/5 mx-2 bg-gray-100 p-2 rounded-3xl shadow-lg flex  ${
                 message.sender?.id === senderId
                   ? "ml-auto justify-end"
                   : "mr-auto"
@@ -119,6 +125,12 @@ const MessageBoard = ({ conversation, senderId }) => {
             rows="3"
             className="flex-grow p-2 border rounded resize-none text-black"
             disabled={submitting}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage(e);
+              }
+            }}
           />
           <button
             type="submit"
