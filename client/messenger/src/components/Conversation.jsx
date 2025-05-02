@@ -6,7 +6,7 @@ const Conversation = ({ id }) => {
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-
+  
   const senderId = parseInt(localStorage.getItem("userId"));
 
   useEffect(() => {
@@ -29,12 +29,12 @@ const Conversation = ({ id }) => {
   return (
     <>
       <div className="p-4">
-        <div className="mt-4 bg-blue-500 text-white p-5 rounded-xl">
-          <p>
+        <div className=" bg-blue-500 text-white p-3 rounded-xl">
+          <p className="text-xl text-center text-blue-50 p-2">
             <strong>Members:</strong>{" "}
             {conversation.chatMembers.map((m) => m.username).join(", ")}
           </p>
-          <MessageBoard conversationId={conversation.id} senderId={senderId} />
+          <MessageBoard conversation={conversation} senderId={senderId} />
         </div>
       </div>
     </>
