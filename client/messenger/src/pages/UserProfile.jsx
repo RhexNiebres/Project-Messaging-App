@@ -133,35 +133,69 @@ const UserProfile = () => {
               {userData.username}'s details
             </h1>
             <div className="flex flex-col gap-3 w-full text-gray-400">
+              <label
+                htmlFor="newUsername"
+                className="block font-semibold text-gray-700"
+              >
+                Username
+              </label>
               <input
+                id="newUsername"
                 type="text"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="New Username"
               />
+              <label
+                htmlFor="email"
+                className="block font-semibold text-gray-700"
+              >
+                Email
+              </label>
               <input
+                id="email"
                 type="email"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="New Email"
               />
+              <label
+                htmlFor="newPassword"
+                className="block font-semibold text-gray-700"
+              >
+                Password
+              </label>
               <input
-                type="password"
+                type="newPassword"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
-                placeholder="New Password (optional)"
+                placeholder="New Password"
               />
+              <label
+                htmlFor="confirmNewPassword"
+                className="block font-semibold text-gray-700"
+              >
+                Confirm Password
+              </label>
               <input
+                id="confirmNewPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="Confirm New Password"
               />
+              <label
+                htmlFor="newGender"
+                className="block font-semibold text-gray-700"
+              >
+                Gender
+              </label>
               <select
+                id="newGender"
                 value={newGender}
                 onChange={(e) => setNewGender(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
