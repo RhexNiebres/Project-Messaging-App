@@ -12,7 +12,5 @@ router.get(
   verifyToken,
   conversationsController.getUserConversations
 );
-router.post('/check', verifyToken,
-    usersController.checkUserExistence);
 
 module.exports = router;
