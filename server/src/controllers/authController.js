@@ -12,18 +12,21 @@ exports.postSignUp = async (req, res, next) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    const [existingUserByUsername, existingUserByEmail] = await Promise.all([
-      prisma.user.findUnique({ where: { username } }),
-      prisma.user.findUnique({ where: { email } }),
-    ]);
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ username }, { email }],
+      },
+    });
 
-    if (existingUserByUsername) {
-      return res.status(400).json({ message: "Username already exists." });
+    if (existingUser) {
+      if (existingUser.username === username) {
+        return res.status(400).json({ message: "Username already exists." });
+      }
+
+      if (existingUser.email === email)
+        return res.status(400).json({ message: "Email already exists." });
     }
 
-    if (existingUserByEmail) {
-      return res.status(400).json({ message: "Email already exists." });
-    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
@@ -36,8 +39,9 @@ exports.postSignUp = async (req, res, next) => {
     });
 
     const token = generateToken(newUser);
-
-    res.status(201).json({ message: "User registered successfully", token });
+    res
+      .status(201)
+      .json({ message: "Account Created Successfully! Please log in.", token });
   } catch (err) {
     return next(err);
   }
@@ -65,6 +69,7 @@ exports.postLogin = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid email or password." });
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch)
       return res.status(400).json({ message: "Invalid email or password." });
 
@@ -81,8 +86,4 @@ exports.postLogin = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-};
-
-exports.logout = (req, res) => {
-  res.json({ message: "Logout successful" });
 };
