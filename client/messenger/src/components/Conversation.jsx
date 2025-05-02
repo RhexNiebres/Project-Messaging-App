@@ -6,7 +6,7 @@ const Conversation = ({ id }) => {
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  
+
   const senderId = parseInt(localStorage.getItem("userId"));
 
   useEffect(() => {
