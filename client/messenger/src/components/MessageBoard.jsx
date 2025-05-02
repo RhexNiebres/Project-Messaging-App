@@ -1,37 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { fetchMessagesByConversationId } from "../apiServices/messages/fetchMessagesByConversationId";
 import { sendMessage } from "../apiServices/messages/sendMessage";
 import { deleteMessageById } from "../apiServices/messages/deleteMessageById";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-const MessageBoard = ({ conversationId, senderId }) => {
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import NewMessageForm from "./NewMessageForm";
+
+const MessageBoard = ({ conversation, senderId }) => {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const autoScrollRef = useRef(null);
 
   useEffect(() => {
-    const loadMessages = async () => {
-      setLoading(true);
-      const result = await fetchMessagesByConversationId(conversationId);
-      if (result.success) {
-        setMessages(result.messages);
-      } else {
-        setError(result.error);
-      }
-      setLoading(false);
-    };
-    loadMessages();
-  }, [conversationId]);
-
+    setMessages(conversation.messages);
+  }, [conversation]);
+  
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!messageContent.trim()) return;
 
     setSubmitting(true);
-    const result = await sendMessage(conversationId, messageContent, senderId);
+    const result = await sendMessage(conversation.id, messageContent, senderId);
     if (result.success) {
       setMessages((prevMessages) => [...prevMessages, result.message]);
       setMessageContent("");
@@ -50,9 +42,14 @@ const MessageBoard = ({ conversationId, senderId }) => {
 
     const result = await deleteMessageById(messageId);
     if (result.success) {
+      console.log(result.deletedMessage);
+      console.log(messages);
       setMessages((prevMessages) =>
-        prevMessages.filter((msg) => msg.id !== messageId)
+        prevMessages.map((msg) =>
+          msg.id === result.deletedMessage.id ? result.deletedMessage : msg
+        )
       );
+      console.log(messages);
       setError(null);
     } else {
       setError(result.error);
@@ -66,45 +63,46 @@ const MessageBoard = ({ conversationId, senderId }) => {
     <div className="space-y-4 px-4 border rounded shadow-md bg-white h-[80vh] w-[80vw] flex flex-col justify-center ">
       <div className="messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto">
         {messages.length === 0 ? (
-          <p className="text-gray-500 p-10 flex justify-center items-center">
-            No messages yet. Start your conversation now!
-          </p>
+          <NewMessageForm onSendMessage={handleSendMessage} />
         ) : (
           messages.map((message) => (
             <div
               key={message.id}
-              className={`message w-1/2 mx-2 bg-gray-100 p-2 rounded shadow-lg flex  ${
+              className={`message w-2/5 mx-2 bg-gray-100 p-2 rounded-full shadow-lg flex  ${
                 message.sender?.id === senderId
                   ? "ml-auto justify-end"
                   : "mr-auto"
               }`}
             >
-              <div
-                className={`w-full ${
-                  message.sender?.id === senderId ? "text-right" : "text-left"
-                }`}
-              >
-                <p className="font-extrabold text-blue-500">
-                  {message.sender?.username || "Unknown"}
-                </p>
-                <p className="text-md font-medium text-black ">
-                  {message.content}
-                </p>
-                <p className="text-s text-gray-400">
-                  sent: {new Date(message.createdAt).toLocaleString()}
-                </p>
-              </div>
-              {message.sender?.id === senderId && (
+              {message.sender?.id === senderId && !message.isDeleted && (
                 <button
                   className=" m-4 "
                   onClick={() => handleDeleteMessage(message.id)}
                 >
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="text-red-500 scale-125 hover:scale-150 transition-transform duration-300"
+                    className="text-gray-400 scale-125 hover:text-red-500 hover:scale-150 transition-transform duration-300 "
                   />
                 </button>
               )}
+              <div
+                className={`w-full ${
+                  message.sender?.id === senderId ? "text-right" : "text-left"
+                }`}
+              >
+                <div className=" px-5">
+                <p className="font-extrabold text-blue-500">
+                  {message.sender?.username || "Unknown"}
+                </p>
+                <p className="text-md text-center font-medium text-black ">
+                  {message.content}
+                </p>
+                <p className="text-s text-gray-400">
+                  sent: {new Date(message.createdAt).toLocaleString()}
+                </p>
+                </div>
+              </div>
+              
             </div>
           ))
         )}
@@ -127,7 +125,11 @@ const MessageBoard = ({ conversationId, senderId }) => {
             className="bg-blue-500 text-white font-bold px-9 py-3 rounded hover:bg-blue-600 disabled:opacity-50  m-4 scale-100 hover:scale-110 transition-transform duration-300"
             disabled={submitting}
           >
-            {submitting ? "Sending..." : <FontAwesomeIcon icon={faPaperPlane} className="scale-150"/>}
+            {submitting ? (
+              "Sending..."
+            ) : (
+              <FontAwesomeIcon icon={faPaperPlane} className="scale-150" />
+            )}
           </button>
         </form>
       </div>
