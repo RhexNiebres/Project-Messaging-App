@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany();
+    
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Error fetching users" });
@@ -34,66 +35,71 @@ exports.updateUser = async (req, res) => {
   const { email, username, password, gender } = req.body;
 
   try {
-  
-    const updateData = {};
-
-    if (email)    updateData.email    = email;
-    if (username) updateData.username = username;
-    if (gender)   updateData.gender   = gender;
-
-    if (password) {
-      const hashed = await bcrypt.hash(password, 10);
-      updateData.password = hashed;
-    }
-
-    const updatedUser = await prisma.user.update({
-      where: { id: parseInt(id) },
-      data: updateData,
-    });
-
-    // to not return the hashed password
-    const { password: _pw, ...safeUser } = updatedUser;
-
-    res.status(200).json(safeUser);
-  } catch (error) {
-    console.error("Update error:", error);
-    res.status(500).json({ error: "Error updating user information" });
-  }
-};
-
-
-exports.checkUserExistence = async (req, res) => {
-  const { username, email, userId } = req.body;
-  try {
-    const user = await prisma.user.findFirst({
+    const existingDifferentUser = await prisma.user.findFirst({
       where: {
         AND: [
           {
-            OR: [
-              { username },
-              { email },
-            ],
+            OR: [{ username }, { email }],
           },
           {
             id: {
-              not: parseInt(userId), 
+              not: parseInt(id),
             },
           },
         ],
       },
     });
 
-    if (user) {
+    if (existingDifferentUser) {
       return res.status(400).json({
         success: false,
         error: "Username or email already exists.",
       });
     }
 
-    res.status(200).json({ success: true });
+    const user = await prisma.user.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const updateData = {};
+
+    if (email && email !== user.email) {
+      updateData.email = email;
+    }
+
+    if (username && username !== user.username) {
+      updateData.username = username;
+    }
+    if (gender && gender !== user.gender) {
+      updateData.gender = gender;
+    }
+
+    if (password) {
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        const hashed = await bcrypt.hash(password, 10);
+        updateData.password = hashed;
+      }
+    }
+    const updatedUser = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data: updateData,
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        gender: true,
+      },
+    });
+
+    res.status(200).json(updatedUser);
   } catch (error) {
-    console.error("Error checking user existence:", error);
-    res.status(500).json({ error: "Error checking user existence", details: error.message });
+    console.error("Update error:", error);
+    res.status(500).json({ error: "Error updating user information" });
   }
 };
 
