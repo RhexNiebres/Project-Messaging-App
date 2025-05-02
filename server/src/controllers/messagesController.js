@@ -2,31 +2,6 @@ const { PrismaClient } = require("../generated/prisma");
 const { json } = require("express");
 const prisma = new PrismaClient();
 
-exports.getMessageByConversation = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const conversation = await prisma.conversation.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        messages: {
-          orderBy: {
-            createdAt: "asc",
-          },
-          include: { sender: true },
-        },
-      },
-    });
-
-    if (!conversation) {
-      return res.status(404).json({ message: "Conversation not found" });
-    }
-
-    res.json(conversation.messages);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching messages" });
-  }
-};
-
 exports.sendMessage = async (req, res) => {
   const { id } = req.params;
   const { content, senderId } = req.body;
@@ -37,7 +12,7 @@ exports.sendMessage = async (req, res) => {
     });
 
     if (!conversation) {
-     return res.status(404).json({ message: "Conversation not found" });
+      return res.status(404).json({ message: "Conversation not found" });
     }
 
     const message = await prisma.message.create({
@@ -46,10 +21,18 @@ exports.sendMessage = async (req, res) => {
         senderId,
         conversationId: parseInt(id),
       },
+      select: {
+        id: true,
+        content: true,
+        conversationId: true,
+        createdAt: true,
+        sender: { select: { id: true, username: true } },
+      },
     });
 
     res.status(201).json(message);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error sending message" });
   }
 };
@@ -65,11 +48,27 @@ exports.deleteMessage = async (req, res) => {
       return res.status(404).json({ message: "Message not found" });
     }
 
-    await prisma.message.delete({
+    const deletedMessage = await prisma.message.update({
       where: { id: parseInt(id) },
+      data: {
+        isDeleted: true,
+      },
+      include: {
+        sender: {
+          select: {
+            username: true,
+            email: true,
+            id: true,
+          },
+        },
+      },
     });
 
-    res.status(200).json({ message: "Message deleted successfully" });
+    deletedMessage.content = "This message was deleted";
+
+    res
+      .status(200)
+      .json({ message: "Message deleted successfully", deletedMessage });
   } catch (error) {
     res.status(500).json({ error: "Error deleting message" });
   }
