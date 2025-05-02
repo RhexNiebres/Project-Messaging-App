@@ -51,7 +51,7 @@ const Signup = () => {
         gender: credentials.gender,
       });
 
-      alert("Account Created Successfully! Please log in.");
+      alert(data.message);
       navigate("/login");
     } catch (err) {
       setError(err.message);
@@ -74,7 +74,14 @@ const Signup = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Create a new account
           </h2>
+          <label
+            htmlFor="username"
+            className="block font-semibold text-gray-700"
+          >
+            Username
+          </label>
           <input
+          id="username"
             type="text"
             placeholder="Username"
             value={credentials.username}
@@ -83,7 +90,14 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <label
+            htmlFor="email"
+            className="block font-semibold text-gray-700"
+          >
+            Email
+          </label>
           <input
+          id="email"
             type="email"
             placeholder="Email"
             value={credentials.email}
@@ -92,7 +106,14 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <label
+            htmlFor="password"
+            className="block font-semibold text-gray-700"
+          >
+            Password
+          </label>
           <input
+          id="password"
             type="password"
             placeholder="Password"
             value={credentials.password}
@@ -101,8 +122,15 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <label
+            htmlFor="confirmPassword"
+            className="block font-semibold text-gray-700"
+          >
+           Confirm Password
+          </label>
           <input
-            type="password"
+          id="confirmPassword"
+            type="confirmPassword"
             placeholder="Confirm Password"
             value={credentials.confirmPassword}
             onChange={(e) =>
@@ -113,7 +141,14 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <label
+            htmlFor="gender"
+            className="block font-semibold text-gray-700"
+          >
+            Gender
+          </label>
           <select
+          id="gender"
             value={credentials.gender}
             onChange={(e) =>
               setCredentials({ ...credentials, gender: e.target.value })
