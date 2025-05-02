@@ -50,6 +50,12 @@ const Login = () => {
           className="bg-white p-7 rounded-lg shadow-lg w-80"
         >
           <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block font-semibold text-gray-700"
+          >
+            Email
+          </label>
             <input
               type="email"
               placeholder="Email"
@@ -64,6 +70,12 @@ const Login = () => {
           
 
           <div className="mb-4">
+             <label
+            htmlFor="Password"
+            className="block font-semibold text-gray-700"
+          >
+            Password
+          </label>
             <input
               type="password"
               placeholder="Password"
