@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createConversation } from "../apiServices/conversations/createConversations"; // import the API call function
+import { createConversation } from "../apiServices/conversations/createConversations";
 
 const NewMessageForm = ({
   currentUserId,
@@ -34,12 +34,12 @@ const NewMessageForm = ({
   };
 
   return (
-    <div className="w-full h-full mx-2 bg-gray-100 p-2 rounded shadow-lg flex justify-center items-center flex-col">
-      <div className="p-4 bg-blue-500 text-gray-100 rounded-xl">
+    <div className="w-full h-full mx-2 bg-gray-100 p-2 rounded shadow-lg flex justify-center items-center flex-col gap-5">
+      <div className="p-5 m-2 bg-blue-500 text-gray-100 rounded-xl font-bold">
         you don't have a conversation with this person send a message now!
       </div>
       <form onSubmit={handleSendMessage} className="w-full max-w-lg space-y-4">
-        <div>
+        <div >
           <label
             htmlFor="message"
             className="block font-semibold text-gray-700"
@@ -50,7 +50,7 @@ const NewMessageForm = ({
             id="message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="mt-1 w-full p-2 border rounded-md"
+            className="mt-1 w-full p-2 border rounded-md text-black"
             placeholder="Enter your message"
           />
         </div>
@@ -59,7 +59,7 @@ const NewMessageForm = ({
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white p-2 rounded-md scale-100 hover:scale-110 transition-transform duration-300 hover:bg-blue-600 "
         >
           Send Message
         </button>
