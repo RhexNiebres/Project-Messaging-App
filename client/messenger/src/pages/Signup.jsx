@@ -81,7 +81,7 @@ const Signup = () => {
             Username
           </label>
           <input
-          id="username"
+            id="username"
             type="text"
             placeholder="Username"
             value={credentials.username}
@@ -90,14 +90,11 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <label
-            htmlFor="email"
-            className="block font-semibold text-gray-700"
-          >
+          <label htmlFor="email" className="block font-semibold text-gray-700">
             Email
           </label>
           <input
-          id="email"
+            id="email"
             type="email"
             placeholder="Email"
             value={credentials.email}
@@ -113,7 +110,7 @@ const Signup = () => {
             Password
           </label>
           <input
-          id="password"
+            id="password"
             type="password"
             placeholder="Password"
             value={credentials.password}
@@ -126,10 +123,10 @@ const Signup = () => {
             htmlFor="confirmPassword"
             className="block font-semibold text-gray-700"
           >
-           Confirm Password
+            Confirm Password
           </label>
           <input
-          id="confirmPassword"
+            id="confirmPassword"
             type="confirmPassword"
             placeholder="Confirm Password"
             value={credentials.confirmPassword}
@@ -141,14 +138,11 @@ const Signup = () => {
             }
             className="w-full p-3 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <label
-            htmlFor="gender"
-            className="block font-semibold text-gray-700"
-          >
+          <label htmlFor="gender" className="block font-semibold text-gray-700">
             Gender
           </label>
           <select
-          id="gender"
+            id="gender"
             value={credentials.gender}
             onChange={(e) =>
               setCredentials({ ...credentials, gender: e.target.value })
