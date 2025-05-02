@@ -25,7 +25,7 @@ const NewMessageForm = ({
     if (result.success) {
       setStatus("Message sent successfully!");
       setMessage("");
-      if (onConversationCreated) { 
+      if (onConversationCreated) {
         onConversationCreated(result.conversation);
       }
     } else {
@@ -39,7 +39,7 @@ const NewMessageForm = ({
         you don't have a conversation with this person send a message now!
       </div>
       <form onSubmit={handleSendMessage} className="w-full max-w-lg space-y-4">
-        <div >
+        <div>
           <label
             htmlFor="message"
             className="block font-semibold text-gray-700"
