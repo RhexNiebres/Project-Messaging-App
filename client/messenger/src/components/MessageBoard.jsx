@@ -66,7 +66,7 @@ const MessageBoard = ({ conversation, senderId }) => {
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
-    <div className="space-y-4 px-4 border rounded shadow-md bg-white h-[80vh] w-[80vw] flex flex-col justify-center ">
+    <div className="space-y-4 px-4 border rounded shadow-xl bg-white h-[80vh] w-[80vw] flex flex-col justify-center ">
       <div
         ref={autoScrollRef}
         className=" messages-container space-y-4 p-4 h-[60vh] border border-gray-300 rounded-2xl overflow-y-auto"
@@ -124,7 +124,7 @@ const MessageBoard = ({ conversation, senderId }) => {
             value={messageContent}
             onChange={(e) => setMessageContent(e.target.value)}
             placeholder="Type your message..."
-            rows="3"
+            rows="2"
             className="flex-grow p-2 border rounded resize-none text-black"
             disabled={submitting}
             onKeyDown={(e) => {

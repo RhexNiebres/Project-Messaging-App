@@ -37,8 +37,8 @@ const UserList = ({ currentUserId, verifyExistingConversation }) => {
   };
 
   return (
-    <div className="p-4 max-w-80  h-1/3.5 mx-5 bg-white shadow-md rounded-md ">
-      <h2 className="text-lg font-semibold mb-4 bg-blue-500 p-4 rounded-2xl text-white text-center">
+    <div className="p-4 max-w-80  h-1/3.5 mx-5 border-2 shadow-xl rounded-md ">
+      <h2 className="text-lg font-semibold mb-4 bg-blue-500 p-4 rounded-2xl text-white text-center ">
         Find user to chat
       </h2>
 

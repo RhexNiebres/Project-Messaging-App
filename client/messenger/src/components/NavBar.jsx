@@ -7,12 +7,12 @@ const NavBar = () => {
   const token = getToken();
 
   return (
-    <nav className="bg-blue-500 p-4 flex justify-between items-center text-white">
+    <nav className=" p-2 px-10 flex justify-between items-center border shadow-xl ">
       <div
         className="flex items-center cursor-pointer"
         onClick={() => navigate("/home")}
       >
-        <h1 className="text-2xl font-bold">Messagely</h1>
+        <h1 className="text-2xl font-bold text-blue-500">Messagely</h1>
       </div>
 
       <div className="space-x-4">
@@ -37,7 +37,7 @@ const NavBar = () => {
 
             <button
               onClick={() => logout(navigate)}
-              className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+              className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600 text-white font-semibold"
             >
               Log Out
             </button>

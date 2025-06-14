@@ -34,10 +34,10 @@ const NewMessageForm = ({
   };
 
   return (
-    <div className="w-full h-full mx-2 bg-gray-100 p-2 rounded shadow-lg flex justify-center items-center flex-col gap-5">
-      <div className="p-5 m-2 bg-blue-500 text-gray-100 rounded-xl font-bold">
+    <div className="w-full h-full mx-2  p-2 rounded shadow-xl flex justify-center items-center flex-col gap-5 border-4">
+      <p className="p-5 m-2 bg-blue-500 text-gray-100 rounded-xl font-bold shadow-xl">
         you don't have a conversation with this person send a message now!
-      </div>
+      </p>
       <form onSubmit={handleSendMessage} className="w-full max-w-lg space-y-4">
         <div>
           <label

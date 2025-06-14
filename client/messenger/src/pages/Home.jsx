@@ -46,7 +46,7 @@ const Home = () => {
     <>
       <NavBar />
       <div className=" h-screen  overflow-auto hide-scrollbar flex ">
-        <div className="mt-10 py-5 ml-5 gap-7 bg-blue-500 flex flex-col justify-start  rounded-2xl h-[86vh] ">
+        <div className="mt-10 py-5 ml-5 gap-7  flex flex-col justify-start  rounded-xl h-[86vh] shadow-2xl">
           <UserList
             currentUserId={currentUserId}
             verifyExistingConversation={verifyExistingConversation}

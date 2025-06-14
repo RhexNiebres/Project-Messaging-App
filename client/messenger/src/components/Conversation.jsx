@@ -27,17 +27,15 @@ const Conversation = ({ id }) => {
   if (errorMsg) return <div className="text-red-500">{errorMsg}</div>;
 
   return (
-    <>
-      <div className="p-4">
-        <div className=" bg-blue-500 text-white p-3 rounded-xl">
-          <p className="text-xl text-center text-blue-50 p-2">
-            <strong>Members:</strong>{" "}
-            {conversation.chatMembers.map((m) => m.username).join(", ")}
-          </p>
-          <MessageBoard conversation={conversation} senderId={senderId} />
-        </div>
-      </div>
-    </>
+    <div className=" p-3 m-2 rounded-xl max-w-full shadow-xl bg-blue-500">
+      <p className="text-xl sm:text-2xl font-semibold text-left text-white break-words p-2 ">
+        {conversation.chatMembers
+          .filter((m) => m.id !== senderId)
+          .map((m) => m.username)
+          .join(", ")}
+      </p>
+      <MessageBoard conversation={conversation} senderId={senderId} />
+    </div>
   );
 };
 
