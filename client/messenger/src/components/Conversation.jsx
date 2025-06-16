@@ -27,7 +27,7 @@ const Conversation = ({ id }) => {
   if (errorMsg) return <div className="text-red-500">{errorMsg}</div>;
 
   return (
-    <div className=" p-3 m-2 rounded-xl max-w-full shadow-xl bg-blue-500">
+    <div className=" p-3 m-2 rounded-xl w-full shadow-xl bg-blue-500">
       <p className="text-xl sm:text-2xl font-semibold text-left text-white break-words p-2 ">
         {conversation.chatMembers
           .filter((m) => m.id !== senderId)
