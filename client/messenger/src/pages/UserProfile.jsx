@@ -122,7 +122,7 @@ const UserProfile = () => {
         </p>
       )}
       {userData ? (
-        <div className="flex flex-col text-white items-center justify-center mt-20 bg-blue-500 rounded-2xl p-10 mx-auto max-w-lg w-full shadow-2xl">
+        <div className="flex flex-col text-white items-center justify-center mt-20 rounded-2xl p-10 mx-auto max-w-lg w-full shadow-2xl border">
           <img
             src={getAvatar(userData.gender)}
             alt="User Avatar"
