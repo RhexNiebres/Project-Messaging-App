@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signup } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
+import GuestLoginButton from "../components/GuestLoginButton";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -172,6 +173,7 @@ const Signup = () => {
               Already have an account?
             </button>
           </div>
+          <GuestLoginButton />
         </form>
       </div>
     </div>
