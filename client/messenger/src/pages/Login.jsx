@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
+import GuestLoginButton from "../components/GuestLoginButton";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const Login = () => {
               Create new account?
             </button>
           </div>
+          <GuestLoginButton/>
         </form>
       </div>
     </div>
