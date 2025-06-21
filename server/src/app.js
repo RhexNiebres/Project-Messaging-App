@@ -33,6 +33,10 @@ app.use("/conversations", conversationsRoutes);
 app.use("/conversations", messagesRoutes);
 app.use("/messages", messagesRoutes);
 
+app.get("/ping", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.listen(process.env.APP_PORT, () =>
   console.log(`App listening on port ${process.env.APP_PORT}!`)
 );
