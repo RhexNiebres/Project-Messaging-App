@@ -13,6 +13,9 @@
   - Tokens automatically expire **30 days** after issuance.
   - After expiry, users must **log in again** to continue using the app.
 
+# Viewer Login
+-Users can login with a viewer account for demo purposes
+
 # Technologies Used
 - **Backend:** Express.js
 - **Database:** PostgreSQL
