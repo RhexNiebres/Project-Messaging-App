@@ -34,6 +34,7 @@ app.use("/conversations", messagesRoutes);
 app.use("/messages", messagesRoutes);
 
 app.get("/ping", (req, res) => {
+    console.log("[PING] Server hit at", new Date().toISOString());
   res.status(200).send("OK");
 });
 
