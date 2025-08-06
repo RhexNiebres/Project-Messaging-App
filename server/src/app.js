@@ -13,15 +13,20 @@ const conversationsRoutes = require("./routes/conversations");
 const messagesRoutes = require("./routes/messages");
 const cors = require("cors");
 
-const allowedOrigins = [process.env.CLIENT_HOST,process.env.MESSAGELY_CLIENT_HOST];
+const allowedOrigins = [
+  process.env.CLIENT_HOST,
+  process.env.MESSAGELY_CLIENT_HOST,
+];
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-app.options("*", cors()); 
+app.options("*", cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,7 +39,7 @@ app.use("/conversations", messagesRoutes);
 app.use("/messages", messagesRoutes);
 
 app.get("/ping", (req, res) => {
-    console.log("[PING] Server hit at", new Date().toISOString());
+  console.log("[PING] Server hit at", new Date().toISOString());
   res.status(200).send("OK");
 });
 
