@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { sendMessage } from "../apiServices/messages/sendMessage";
-import { deleteMessageById } from "../apiServices/messages/deleteMessageById";
+import { sendMessage } from "../apiRequests/messages/sendMessage";
+import { deleteMessageById } from "../apiRequests/messages/deleteMessageById";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";

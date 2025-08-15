@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUsersById } from "../apiServices/users/fetchUserById";
+import { fetchUsersById } from "../apiRequests/users/fetchUserById";
 
 const ProfileButton = () => {
   const [user, setUser] = useState(null);

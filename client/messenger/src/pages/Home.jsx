@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import ConversationList from "../components/ConversationList";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { fetchConversations } from "../apiServices/conversations/fetchConversations";
+import { fetchConversations } from "../apiRequests/conversations/fetchConversations";
 import NewMessageForm from "../components/NewMessageForm";
 import UserList from "../components/UserList";
 import Conversation from "../components/Conversation";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createConversation } from "../apiServices/conversations/createConversations";
+import { createConversation } from "../apiRequests/conversations/createConversations";
 
 const NewMessageForm = ({
   currentUserId,

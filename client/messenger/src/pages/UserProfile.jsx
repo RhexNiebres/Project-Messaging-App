@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
-import { fetchUsersById } from "../apiServices/users/fetchUserById";
-import { updateUser } from "../apiServices/users/updateUser";
+import { fetchUsersById } from "../apiRequests/users/fetchUserById";
+import { updateUser } from "../apiRequests/users/updateUser";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
@@ -14,7 +14,7 @@ const UserProfile = () => {
   const [editError, setEditError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [passwordUpdated, setPasswordUpdated] = useState(false);
-    const isGuest = userData?.email === "guest@example.com";
+  const isGuest = userData?.email === "guest@example.com";
 
   const userId = localStorage.getItem("userId");
 
@@ -72,7 +72,7 @@ const UserProfile = () => {
       return;
     }
 
-     if (isGuest) {
+    if (isGuest) {
       setEditError("Guest account cannot be edited.");
       return;
     }
@@ -152,7 +152,7 @@ const UserProfile = () => {
                 onChange={(e) => setNewUsername(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="New Username"
-                      disabled={isGuest}
+                disabled={isGuest}
               />
               <label
                 htmlFor="email"
@@ -167,7 +167,7 @@ const UserProfile = () => {
                 onChange={(e) => setNewEmail(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="New Email"
-                      disabled={isGuest}
+                disabled={isGuest}
               />
               <label
                 htmlFor="newPassword"
@@ -181,7 +181,7 @@ const UserProfile = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="New Password"
-                      disabled={isGuest}
+                disabled={isGuest}
               />
               <label
                 htmlFor="confirmNewPassword"
@@ -196,7 +196,7 @@ const UserProfile = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="px-4 py-2 rounded-md border border-gray-300"
                 placeholder="Confirm New Password"
-                      disabled={isGuest}
+                disabled={isGuest}
               />
               <label
                 htmlFor="newGender"
@@ -208,7 +208,7 @@ const UserProfile = () => {
                 id="newGender"
                 value={newGender}
                 onChange={(e) => setNewGender(e.target.value)}
-                      disabled={isGuest}
+                disabled={isGuest}
                 className="px-4 py-2 rounded-md border border-gray-300"
               >
                 <option value="MALE">Male</option>
@@ -220,7 +220,6 @@ const UserProfile = () => {
               <button
                 onClick={handleSaveEdit}
                 disabled={isSaveDisabled || loading}
-                
                 className={`px-4 py-2 rounded-md text-white scale-95 transition-transform duration-300 ${
                   isSaveDisabled || loading
                     ? "bg-gray-300 cursor-not-allowed"

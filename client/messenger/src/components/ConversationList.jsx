@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchConversations } from "../apiServices/conversations/fetchConversations";
+import { fetchConversations } from "../apiRequests/conversations/fetchConversations";
 
 const ConversationList = ({ currentUserId, setExistingConversation }) => {
   const [userConversations, setUserConversations] = useState([]);
@@ -49,7 +49,7 @@ const ConversationList = ({ currentUserId, setExistingConversation }) => {
         </ul>
       ) : (
         <div className=" w-full h-96 flex justify-center items-center rounded-2xl text-gray-400">
-          <p >No conversations yet.</p>
+          <p>No conversations yet.</p>
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchConversationById } from "../apiServices/conversations/fetchConversationById";
+import { fetchConversationById } from "../apiRequests/conversations/fetchConversationById";
 import MessageBoard from "../components/MessageBoard";
 
 const Conversation = ({ id }) => {

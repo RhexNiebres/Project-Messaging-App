@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers } from "../apiServices/users/fetchUsers";
+import { fetchUsers } from "../apiRequests/users/fetchUsers";
 
 const UserList = ({ currentUserId, verifyExistingConversation }) => {
   const [users, setUsers] = useState([]);
